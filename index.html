@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bien-être">
+<meta name="theme-color" content="#0a0e1a">
+<title>Bien-être</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0a0e1a;color:#e8ecf8;min-height:100vh;padding:calc(env(safe-area-inset-top) + 1rem) 1rem calc(env(safe-area-inset-bottom) + 3rem);font-size:16px;line-height:1.5;max-width:900px;margin:0 auto;-webkit-text-size-adjust:100%}
+h1{text-align:center;font-size:1.4rem;margin-bottom:0.3rem;background:linear-gradient(135deg,#d946ef,#a78bfa,#6ee7a3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;font-size:0.8rem;color:#8892b0;margin-bottom:1rem;min-height:1.2rem}
+.urgence{background:linear-gradient(135deg,#c0392b,#e07070);border-radius:14px;padding:0.9rem;margin-bottom:1rem;text-align:center;box-shadow:0 4px 20px rgba(192,57,43,0.3)}
+.urgence-title{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;color:#fff;margin-bottom:0.5rem}
+.urgence-row{display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap}
+.urgence-btn{flex:1;min-width:80px;background:#fff;color:#c0392b;padding:0.6rem 0.4rem;border-radius:10px;text-decoration:none;font-weight:700;font-size:0.85rem;text-align:center;display:block}
+.urgence-btn:active{transform:scale(0.97)}
+.urgence-btn small{display:block;font-size:0.65rem;font-weight:400;color:#8892b0;margin-top:0.1rem}
+.tabs{display:flex;gap:0.3rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:0.3rem;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;min-width:70px;padding:0.55rem 0.55rem;border-radius:10px;background:#131829;border:1px solid #2a3350;color:#8892b0;font-size:0.68rem;font-weight:600;cursor:pointer;text-align:center;white-space:nowrap}
+.tab.active{background:linear-gradient(135deg,#d946ef,#a78bfa);color:#fff;border-color:transparent}
+.panel{background:#131829;border:1px solid #2a3350;border-radius:16px;padding:1rem;margin-bottom:1rem}
+.lbl{font-size:0.72rem;color:#8892b0;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:0.6rem}
+.card{background:#131829;border:1px solid #2a3350;border-radius:16px;padding:1rem;margin-bottom:1rem}
+.card.good{border-color:#2d8a4e}
+.card.warn{border-color:#d4a017}
+.card.bad{border-color:#c0392b}
+.card.pink{border-color:#d946ef}
+.card h3{font-size:1rem;margin-bottom:0.5rem}
+.card p{font-size:0.85rem;color:#a8b0c8;line-height:1.6;margin-bottom:0.5rem}
+input[type=text],input[type=tel],input[type=password],input[type=number],textarea{width:100%;padding:0.8rem;border-radius:12px;border:1px solid #2a3350;background:#1a2036;color:#e8ecf8;font-family:inherit;font-size:16px;-webkit-appearance:none;margin-bottom:0.5rem}
+input:focus,textarea:focus{outline:none;border-color:#d946ef}
+textarea{min-height:80px;resize:vertical}
+button.primary{width:100%;padding:0.9rem;border-radius:14px;border:none;background:linear-gradient(135deg,#d946ef,#a78bfa);color:#fff;font-size:1rem;font-weight:600;font-family:inherit;cursor:pointer;margin-top:0.4rem}
+button.primary:active{transform:scale(0.98)}
+button.green{background:linear-gradient(135deg,#2d8a4e,#6ee7a3);color:#0a0e1a}
+button.red{background:linear-gradient(135deg,#c0392b,#e07070);color:#fff}
+button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
+.row{display:flex;justify-content:space-between;align-items:flex-start;padding:0.6rem 0;border-bottom:1px solid #1f2740;gap:0.8rem}
+.row:last-child{border-bottom:none}
+.row-label{font-size:0.8rem;color:#8892b0;flex-shrink:0;font-weight:600}
+.row-value{font-size:0.85rem;font-weight:600;text-align:right;flex:1;min-width:0}
+.badge{display:inline-block;padding:0.35rem 0.8rem;border-radius:20px;font-size:0.75rem;font-weight:700;margin:0.2rem 0.2rem 0.2rem 0}
+.badge.green{background:#2d8a4e;color:#fff}
+.badge.red{background:#c0392b;color:#fff}
+.badge.pink{background:#d946ef;color:#fff}
+.hidden{display:none!important}
+.note{font-size:0.7rem;color:#4a5578;text-align:center;margin-top:0.8rem;line-height:1.5}
+.center{text-align:center}
+.text-muted{color:#8892b0;font-size:0.85rem}
+.mt-1{margin-top:0.5rem}
+.mt-2{margin-top:1rem}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.6)}50%{box-shadow:0 0 0 15px rgba(192,57,43,0)}}
+.pulse{animation:pulse 2s infinite}
+.list-item{background:#1a2036;border-radius:12px;padding:0.8rem;margin-bottom:0.5rem;font-size:0.85rem;position:relative}
+.list-item .delete{position:absolute;top:0.5rem;right:0.5rem;background:#c0392b;border:none;color:#fff;font-size:0.9rem;cursor:pointer;padding:0.3rem 0.6rem;border-radius:8px;font-weight:700}
+.list-item strong{color:#e8ecf8}
+.list-item small{color:#8892b0;display:block;margin-top:0.2rem}
+.sos-float{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 1rem);right:1rem;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e07070);color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;box-shadow:0 6px 20px rgba(192,57,43,0.5);z-index:100;animation:pulse 2.5s infinite}
+</style>
+</head>
+<body>
+
+<h1>💗 Mon Espace</h1>
+<p class="sub">Tu n'es pas seule. Des ressources et de l'aide sont là.</p>
+
+<!-- 🚨 BANDEAU URGENCE PERMANENT -->
+<div class="urgence pulse">
+  <div class="urgence-title">🚨 URGENCE — Appel direct</div>
+  <div class="urgence-row">
+    <a href="tel:117" class="urgence-btn">📞 117<small>Police</small></a>
+    <a href="tel:144" class="urgence-btn">📞 144<small>Ambulance</small></a>
+    <a href="tel:0800909090" class="urgence-btn">📞 0800<small>Violences</small></a>
+  </div>
+</div>
+
+<!-- 📑 ONGLETS -->
+<div class="tabs">
+  <div class="tab active" data-tab="accueil">🏠 Accueil</div>
+  <div class="tab" data-tab="plan">🛡️ Plan</div>
+  <div class="tab" data-tab="preuves">📸 Preuves</div>
+  <div class="tab" data-tab="ressources">🗺️ Aide</div>
+  <div class="tab" data-tab="droits">⚖️ Droits</div>
+  <div class="tab" data-tab="calme">🧘 Calme</div>
+  <div class="tab" data-tab="proches">❤️ Proches</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 1 : ACCUEIL -->
+<!-- ===================================================== -->
+<div id="tab-accueil">
+  <div class="card pink">
+    <h3>💗 Tu es au bon endroit</h3>
+    <p>Cette application est <strong>100 % confidentielle</strong>. Aucune donnée n'est envoyée sur Internet. Tout reste sur ton téléphone.</p>
+    <p><strong>Tu mérites d'être en sécurité. Tu n'es pas responsable de ce qui t'arrive.</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">🆘 Appeler immédiatement</div>
+    <a href="tel:117" class="primary" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#c0392b,#e07070);margin-bottom:0.5rem">📞 Police — 117</a>
+    <a href="tel:144" class="primary" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d97706,#f59e0b);margin-bottom:0.5rem">📞 Ambulance — 144</a>
+    <a href="tel:0800909090" class="primary" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d946ef,#a78bfa)">📞 Violences Femmes — 0800 90 90 90</a>
+  </div>
+
+  <div class="card warn">
+    <h3>📱 Comment utiliser cette app en sécurité</h3>
+    <p>• <strong>Renomme l'app</strong> en quelque chose de banal (dans Réglages iPhone)</p>
+    <p>• <strong>Vide l'historique</strong> régulièrement (Safari → Effacer historique)</p>
+    <p>• <strong>N'utilise pas</strong> cette app devant la personne violente</p>
+    <p>• <strong>Active un code PIN</strong> dans l'onglet Plan → Protections</p>
+    <p>• <strong>Fais confiance à ton instinct</strong> : si tu as peur, tu as raison de te protéger.</p>
+  </div>
+
+  <div class="card">
+    <h3>🆘 Je suis en danger MAINTENANT</h3>
+    <p>Si tu es en danger immédiat :</p>
+    <p><strong>1.</strong> Va dans un endroit sûr (salle de bain, chez un voisin, dehors)</p>
+    <p><strong>2.</strong> Appelle le <strong>117</strong> (Police) ou le <strong>144</strong> (Ambulance)</p>
+    <p><strong>3.</strong> Si tu ne peux pas parler, dis juste <strong>"Police"</strong> ou <strong>"Ambulance"</strong></p>
+    <p><strong>4.</strong> Envoie un SOS à un contact de confiance (voir onglet Proches)</p>
+    <a href="tel:117" class="primary red" style="text-decoration:none;display:block;text-align:center;margin-top:0.5rem">📞 Appeler la Police — 117</a>
+  </div>
+
+  <div class="card good">
+    <h3>💚 Un mot pour toi</h3>
+    <p>Ce que tu vis est <strong>grave</strong>. Ce n'est pas ta faute. Aucune personne ne mérite d'être violentée, humiliée ou menacée.</p>
+    <p><strong>Tu mérites d'être aimée, respectée, en sécurité.</strong></p>
+    <p>Tu as déjà survécu à 100 % de tes pires journées. Tu es plus forte que tu ne le penses.</p>
+  </div>
+
+  <div class="card">
+    <h3>🎭 Mode discret</h3>
+    <p>Tu peux <strong>changer le nom de l'app</strong> dans ton écran d'accueil :</p>
+    <p>• Appui long sur l'icône → <strong>Modifier l'écran d'accueil</strong></p>
+    <p>• Renomme en : <strong>"Notes"</strong>, <strong>"Calendrier"</strong>, <strong>"Météo"</strong>...</p>
+    <p>→ Personne ne saura que c'est une appli d'aide.</p>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 2 : PLAN DE SÉCURITÉ -->
+<!-- ===================================================== -->
+<div id="tab-plan" class="hidden">
+  <div class="card">
+    <h3>🛡️ Mon Plan de Sécurité</h3>
+    <p>Un plan préparé <strong>quand tu vas bien</strong> pour t'aider <strong>en cas de crise</strong>. Tout est stocké sur ton iPhone uniquement.</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">🆘 Évaluation du danger</div>
+    <p class="text-muted">Réponds honnêtement. Ça t'aide à voir où tu en es.</p>
+    <div id="dangerQuestions"></div>
+    <button class="primary small" id="btnEvalDanger">📊 Voir mon résultat</button>
+    <div id="dangerResult" class="mt-2"></div>
+  </div>
+
+  <div class="card">
+    <div class="lbl">1. Signaux d'alerte (ce qui déclenche la violence)</div>
+    <textarea id="plan-signaux" placeholder="Ex : quand il boit, quand je rentre tard, quand je vois mes amies..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="lbl">2. Endroits sûrs</div>
+    <textarea id="plan-endroits" placeholder="Ex : salle de bain, chambre de ma sœur, café du coin, commissariat..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="lbl">3. Personnes de confiance</div>
+    <textarea id="plan-personnes" placeholder="Ex : ma sœur, ma meilleure amie, ma voisine du 3e..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="lbl">4. Codes ou phrases secrètes</div>
+    <textarea id="plan-codes" placeholder="Ex : si j'écris 'tu peux me rappeler ?' c'est un SOS..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="lbl">5. Mes raisons de partir / de me protéger</div>
+    <textarea id="plan-raisons" placeholder="Ex : mes enfants, ma santé, ma liberté, ma vie..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="lbl">6. Mes forces</div>
+    <textarea id="plan-forces" placeholder="Ex : je suis courageuse, je sais me débrouiller, j'ai un travail..."></textarea>
+  </div>
+
+  <button class="primary green" id="btnSavePlan">💾 Sauvegarder mon plan</button>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 3 : PREUVES -->
+<!-- ===================================================== -->
+<div id="tab-preuves" class="hidden">
+  <div class="card bad">
+    <h3>📸 Preuves (confidentiel)</h3>
+    <p>Toutes les preuves sont stockées <strong>uniquement sur ton iPhone</strong>. Aucune donnée n'est envoyée sur Internet.</p>
+    <p><strong>⚠️ Important</strong> : si tu veux les utiliser en justice, garde une <strong>copie sécurisée ailleurs</strong> (chez un proche de confiance, avocat, ou cloud protégé).</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">➕ Ajouter un événement</div>
+    <input type="text" id="preuve-date" placeholder="Date (ex : 15.03.2026)">
+    <input type="text" id="preuve-heure" placeholder="Heure (ex : 22h30)">
+    <input type="text" id="preuve-lieu" placeholder="Lieu (ex : domicile, voiture...)">
+    <textarea id="preuve-desc" placeholder="Décris ce qui s'est passé..."></textarea>
+    <input type="text" id="preuve-temoins" placeholder="Témoins (optionnel)">
+    <button class="primary red small" id="btnAddPreuve">➕ Ajouter cette preuve</button>
+  </div>
+
+  <div class="card">
+    <div class="lbl">🔐 Protéger mes preuves par code PIN</div>
+    <button class="primary small" id="btnActiverPinPreuves">🔒 Activer un code PIN</button>
+    <div id="pinStatusPreuves" class="mt-2"></div>
+  </div>
+
+  <div class="card">
+    <div class="lbl">📅 Mes preuves enregistrées</div>
+    <div id="preuveList"></div>
+  </div>
+
+  <div class="card">
+    <div class="lbl">💾 Export / Sauvegarde</div>
+    <button class="primary small" id="btnExportPreuves">📤 Copier mes preuves (presse-papiers)</button>
+    <button class="primary small" id="btnResetPreuves" style="background:linear-gradient(135deg,#c0392b,#e07070);margin-top:0.5rem">🗑️ Tout effacer</button>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 4 : RESSOURCES -->
+<!-- ===================================================== -->
+<div id="tab-ressources" class="hidden">
+  <div class="card pink">
+    <h3>🗺️ Ressources d'aide</h3>
+    <p>Numéros, sites et adresses pour t'aider en Suisse.</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">📞 Numéros d'urgence</div>
+    <a href="tel:117" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#c0392b,#e07070);margin-bottom:0.5rem">📞 Police — 117</a>
+    <a href="tel:144" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d97706,#f59e0b);margin-bottom:0.5rem">📞 Ambulance — 144</a>
+    <a href="tel:0800909090" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d946ef,#a78bfa);margin-bottom:0.5rem">📞 Violences Femmes — 0800 90 90 90</a>
+    <a href="tel:143" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#4a9eff,#7c5cff)">📞 La Main Tendue — 143</a>
+  </div>
+
+  <div class="card">
+    <div class="lbl">🏠 Foyers d'accueil (Suisse)</div>
+    <div class="row"><span class="row-value">📍 <strong>Genève</strong> — Au Cœur des Grottes</span></div>
+    <div class="row"><span class="row-value">📍 <strong>Vaud</strong> — Centre Malley Prairie</span></div>
+    <div class="row"><span class="row-value">📍 <strong>Fribourg</strong> — Solidarité Femmes</span></div>
+    <div class="row"><span class="row-value">📍 <strong>Valais</strong> — Centre de la Bourgeoisie</span></div>
+    <div class="row"><span class="row-value">📍 <strong>Neuchâtel</strong> — Solidarité Femmes</span></div>
+    <div class="row"><span class="row-value">📍 <strong>Berne</strong> — Frauenhaus Bern</span></div>
+    <div class="row"><span class="row-value">📍 <strong>Zurich</strong> — Frauenhaus Zürich</span></div>
+    <p class="text-muted mt-1">Appelle le <strong>0800 90 90 90</strong> pour être orientée vers le foyer le plus proche.</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">🌐 Sites utiles</div>
+    <a href="https://www.violencequefaire.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 violencequefaire.ch</a>
+    <a href="https://www.femmes-solidarite.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 femmes-solidarite.ch</a>
+    <a href="https://www.centre-femmes.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 centre-femmes.ch</a>
+    <a href="https://www.violencequefaire.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600">🌐 SOS Femmes</a>
+  </div>
+
+  <div class="card">
+    <div class="lbl">👶 Aide pour les enfants</div>
+    <a href="tel:147" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d97706,#f59e0b);margin-bottom:0.5rem">📞 Pro Juventute — 147</a>
+    <p class="text-muted">Aide aux enfants et adolescents en danger.</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">⚖️ Aide juridique</div>
+    <p class="text-muted">Pour un conseil juridique gratuit et confidentiel :</p>
+    <a href="tel:0800909090" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d946ef,#a78bfa)">📞 0800 90 90 90</a>
+  </div>
+
+  <div class="card">
+    <div class="lbl">🧠 Aide psychologique</div>
+    <a href="tel:143" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#4a9eff,#7c5cff);margin-bottom:0.5rem">📞 La Main Tendue — 143</a>
+    <p class="text-muted">Écoute gratuite 24h/24, anonyme.</p>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 5 : DROITS -->
+<!-- ===================================================== -->
+<div id="tab-droits" class="hidden">
+  <div class="card">
+    <h3>⚖️ Tes droits en Suisse</h3>
+    <p>La violence est <strong>interdite par la loi</strong>, peu importe qui tu es et qui est l'agresseur.</p>
+  </div>
+
+  <div class="card good">
+    <h3>✅ Ce que la loi te garantit</h3>
+    <div class="row"><span class="row-value">🚫 <strong>Interdit</strong> : violence physique, sexuelle, psychologique, économique</span></div>
+    <div class="row"><span class="row-value">🏠 <strong>Droit</strong> de quitter le domicile conjugal</span></div>
+    <div class="row"><span class="row-value">📞 <strong>Droit</strong> d'appeler la police à tout moment</span></div>
+    <div class="row"><span class="row-value">👮 <strong>Droit</strong> de porter plainte (même contre un proche)</span></div>
+    <div class="row"><span class="row-value">🏥 <strong>Droit</strong> de te faire examiner par un médecin</span></div>
+    <div class="row"><span class="row-value">⚖️ <strong>Droit</strong> à un avocat gratuit si revenus faibles</span></div>
+  </div>
+
+  <div class="card warn">
+    <h3>📋 Que faire en cas de violence</h3>
+    <p><strong>1.</strong> Mets-toi en sécurité (endroit sûr, dehors)</p>
+    <p><strong>2.</strong> Appelle la Police : <strong>117</strong></p>
+    <p><strong>3.</strong> Fais constater les blessures chez un médecin</p>
+    <p><strong>4.</strong> Porte plainte au commissariat (dans les 3 mois, ou 10 ans pour violences graves)</p>
+    <p><strong>5.</strong> Garde toutes les preuves (photos, messages, témoins)</p>
+    <p><strong>6.</strong> Demande une <strong>ordonnance de protection</strong> au tribunal</p>
+  </div>
+
+  <div class="card bad">
+    <h3>🚫 Ce que tu n'es PAS obligée de faire</h3>
+    <div class="row"><span class="row-value">❌ <strong>Pardonner</strong> à l'agresseur</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Rester</strong> pour les enfants</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Accepter</strong> les excuses répétées</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Cacher</strong> la vérité à ta famille</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Te sentir coupable</strong> — tu n'es jamais responsable</span></div>
+  </div>
+
+  <div class="card">
+    <h3>📞 Démarches concrètes</h3>
+    <p><strong>• Plainte</strong> : commissariat de police → gratuit</p>
+    <p><strong>• Ordonnance de protection</strong> : tribunal → gratuit</p>
+    <p><strong>• Aide juridique</strong> : 0800 90 90 90</p>
+    <p><strong>• Constat médical</strong> : médecin ou hôpital → garde le certificat</p>
+    <p><strong>• Main courante</strong> : signale les faits sans porter plainte</p>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 6 : CALME -->
+<!-- ===================================================== -->
+<div id="tab-calme" class="hidden">
+  <div class="card">
+    <h3>🧘 Retrouver le calme</h3>
+    <p>Quand la peur ou le stress montent, ces outils peuvent t'aider à te calmer.</p>
+  </div>
+
+  <div class="card warn">
+    <h3>🫁 Respiration 4-7-8</h3>
+    <p>Technique reconnue pour calmer le système nerveux en 1 minute.</p>
+    <div class="center mt-2">
+      <div id="breathCircle" style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#d946ef,#a78bfa);margin:0 auto;transition:all 4s ease-in-out;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff">Prête ?</div>
+      <button class="primary small" id="btnBreath">▶️ Commencer</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Ancrage 5-4-3-2-1</h3>
+    <p>Ramène ton esprit dans le présent :</p>
+    <div id="ancrageText" style="min-height:3rem;text-align:center;padding:1rem;background:#1a2036;border-radius:12px;font-weight:600">Appuie sur ▶️</div>
+    <button class="primary small mt-1" id="btnAncrage">▶️ Commencer</button>
+  </div>
+
+  <div class="card">
+    <h3>💪 Auto-défense verbale</h3>
+    <p><strong>Phrases pour te protéger :</strong></p>
+    <p>• « Je ne veux pas discuter maintenant. »</p>
+    <p>• « Je vais partir, on reprendra plus tard. »</p>
+    <p>• « Je vais dans la salle de bain. »</p>
+    <p>• « Je ne mérite pas d'être traitée comme ça. »</p>
+  </div>
+
+  <div class="card good">
+    <h3>💚 Auto-compassion</h3>
+    <p>Dis-toi à voix haute :</p>
+    <p><em>« Ce que je vis est difficile. Je fais de mon mieux. Je mérite d'être en sécurité. Je ne suis pas seule. »</em></p>
+  </div>
+
+  <div class="card">
+    <h3>🎵 Sons apaisants</h3>
+    <p>Un fond sonore pour te calmer.</p>
+    <button class="primary small" id="btnAudioPluie" type="button">🌧️ Pluie</button>
+    <button class="primary small" id="btnAudioVagues" type="button">🌊 Vagues</button>
+    <button class="primary small" id="btnAudioStop" type="button" style="background:linear-gradient(135deg,#c0392b,#e07070)">⏹️ Arrêter</button>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ONGLET 7 : PROCHES -->
+<!-- ===================================================== -->
+<div id="tab-proches" class="hidden">
+  <div class="card bad">
+    <h3>❤️ Mes contacts de confiance</h3>
+    <p>Ajoute ici les personnes en qui tu as <strong>totalement confiance</strong>. Tu pourras leur envoyer un <strong>SOS en 1 clic</strong>.</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">➕ Ajouter un contact de confiance</div>
+    <input type="text" id="contact-nom" placeholder="Prénom (ex : Marie)">
+    <input type="tel" id="contact-tel" placeholder="Numéro">
+    <input type="text" id="contact-code" placeholder="Code secret (ex : le mot 'fleur')">
+    <button class="primary green small" id="btnAddContact">➕ Ajouter ce contact</button>
+    <div id="contactList" class="mt-2"></div>
+  </div>
+
+  <div class="card warn">
+    <h3>🆘 Envoie un SOS à tous tes contacts</h3>
+    <p>Un SMS avec ta position approximative sera envoyé à tous tes contacts de confiance.</p>
+    <button class="primary red" id="btnSOSAll">🆘 ENVOYER LE SOS</button>
+  </div>
+
+  <div class="card">
+    <h3>💬 Exemple de message SOS</h3>
+    <p style="font-style:italic;background:#1a2036;padding:0.8rem;border-radius:12px">« 🆘 J'ai besoin d'aide. Contacte-moi ou appelle le 117. Merci. »</p>
+    <button class="primary small" id="btnCopySOS">📋 Copier ce message</button>
+  </div>
+
+  <div class="card good">
+    <h3>❤️ Pour les proches</h3>
+    <p><strong>Si tu reçois un SOS de ta proche :</strong></p>
+    <p>• <strong>Appelle-la tout de suite</strong></p>
+    <p>• <strong>Écoute</strong> sans juger</p>
+    <p>• <strong>Ne lui dis pas</strong> « quitte-le » (elle seule peut décider)</p>
+    <p>• <strong>Propose un endroit sûr</strong></p>
+    <p>• <strong>Appelle le 117</strong> si danger immédiat</p>
+  </div>
+</div>
+
+<!-- Pied de page -->
+<div class="note">
+  🔒 Application 100 % confidentielle — Aucune donnée envoyée sur Internet.<br>
+  Si tu es en danger immédiat : <strong>117</strong> (Police) ou <strong>144</strong> (Ambulance).
+</div>
+<script>
+// ============ NAVIGATION ============
+function switchTab(name){
+  const tabs=document.querySelectorAll(".tab");
+  for(let i=0;i<tabs.length;i++){tabs[i].classList.toggle("active",tabs[i].dataset.tab===name);}
+  const panels=["accueil","plan","preuves","ressources","droits","calme","proches"];
+  for(let i=0;i<panels.length;i++){
+    const el=document.getElementById("tab-"+panels[i]);
+    if(el) el.classList.toggle("hidden",panels[i]!==name);
+  }
+  window.scrollTo(0,0);
+}
+const tabEls=document.querySelectorAll(".tab");
+for(let i=0;i<tabEls.length;i++){tabEls[i].addEventListener("click",function(){switchTab(this.dataset.tab)});}
+
+// ============ STOCKAGE SÉCURISÉ ============
+const KEY_PLAN="sosf_plan_v1";
+const KEY_PREUVES="sosf_preuves_v1";
+const KEY_CONTACTS="sosf_contacts_v1";
+const KEY_PIN="sosf_pin_v1";
+const KEY_PIN_ACTIF="sosf_pin_actif_v1";
+const KEY_DANGER="sosf_danger_v1";
+
+function load(key,def){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(def))}catch(e){return def}}
+function save(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch(e){}}
+
+// ============ PLAN DE SÉCURITÉ ============
+function chargerPlan(){
+  const p=load(KEY_PLAN,{signaux:"",endroits:"",personnes:"",codes:"",raisons:"",forces:""});
+  document.getElementById("plan-signaux").value=p.signaux||"";
+  document.getElementById("plan-endroits").value=p.endroits||"";
+  document.getElementById("plan-personnes").value=p.personnes||"";
+  document.getElementById("plan-codes").value=p.codes||"";
+  document.getElementById("plan-raisons").value=p.raisons||"";
+  document.getElementById("plan-forces").value=p.forces||"";
+}
+document.getElementById("btnSavePlan").addEventListener("click",function(){
+  const p={
+    signaux:document.getElementById("plan-signaux").value,
+    endroits:document.getElementById("plan-endroits").value,
+    personnes:document.getElementById("plan-personnes").value,
+    codes:document.getElementById("plan-codes").value,
+    raisons:document.getElementById("plan-raisons").value,
+    forces:document.getElementById("plan-forces").value
+  };
+  save(KEY_PLAN,p);
+  alert("✅ Ton plan est sauvegardé sur ton iPhone.\n\nPersonne d'autre n'y a accès.");
+});
+
+// ============ ÉVALUATION DU DANGER ============
+const QUESTIONS_DANGER=[
+  "Il/elle t'a déjà menacée de te tuer ou de te faire du mal ?",
+  "Il/elle t'a déjà frappée, étranglée ou blessée ?",
+  "Il/elle te surveille ou contrôle tes déplacements ?",
+  "Il/elle t'a déjà forcée à avoir des rapports sexuels ?",
+  "Il/elle t'a menacée à propos des enfants ?",
+  "Il/elle a déjà utilisé une arme contre toi ?",
+  "Tu as peur qu'il/elle te tue ?",
+  "Il/elle a déjà menacé de se suicider si tu partais ?",
+  "Tu as déjà pensé au suicide à cause de lui/elle ?",
+  "Il/elle devient plus violent(e) avec le temps ?"
+];
+function injecterQuestions(){
+  const z=document.getElementById("dangerQuestions");
+  if(!z||z.dataset.ok) return;
+  z.dataset.ok="1";
+  const stored=load(KEY_DANGER,{});
+  z.innerHTML=QUESTIONS_DANGER.map(function(q,i){
+    return '<div style="padding:0.5rem 0;border-bottom:1px solid #1f2740">'+
+      '<div style="font-size:0.85rem;margin-bottom:0.4rem">'+q+'</div>'+
+      '<div style="display:flex;gap:0.5rem">'+
+        '<button class="danger-btn '+(stored[i]===1?"active":"")+'" data-i="'+i+'" data-v="1" style="flex:1;padding:0.5rem;border-radius:10px;border:1px solid '+(stored[i]===1?"#c0392b":"#2a3350")+';background:'+(stored[i]===1?"#c0392b":"#1a2036")+';color:#fff;font-size:0.8rem;cursor:pointer">Oui</button>'+
+        '<button class="danger-btn '+(stored[i]===0?"active":"")+'" data-i="'+i+'" data-v="0" style="flex:1;padding:0.5rem;border-radius:10px;border:1px solid '+(stored[i]===0?"#2d8a4e":"#2a3350")+';background:'+(stored[i]===0?"#2d8a4e":"#1a2036")+';color:#fff;font-size:0.8rem;cursor:pointer">Non</button>'+
+      '</div>'+
+    '</div>';
+  }).join("");
+  const btns=z.querySelectorAll(".danger-btn");
+  for(let i=0;i<btns.length;i++){
+    btns[i].addEventListener("click",function(){
+      const idx=parseInt(this.dataset.i);
+      const v=parseInt(this.dataset.v);
+      const d=load(KEY_DANGER,{});
+      d[idx]=v;
+      save(KEY_DANGER,d);
+      injecterQuestions();
+    });
+  }
+}
+document.getElementById("btnEvalDanger").addEventListener("click",function(){
+  const d=load(KEY_DANGER,{});
+  let oui=0;
+  for(let k in d){if(d[k]===1) oui++;}
+  const z=document.getElementById("dangerResult");
+  let msg="";
+  let couleur="#2d8a4e";
+  if(oui>=7){msg="🚨 DANGER ÉLEVÉ — Tu es dans une situation à haut risque. Appelle immédiatement le 0800 90 90 90 ou le 117.";couleur="#c0392b";}
+  else if(oui>=4){msg="⚠️ DANGER MODÉRÉ — Ta situation est préoccupante. Contacte une association (0800 90 90 90).";couleur="#d97706";}
+  else if(oui>=1){msg="💛 DANGER FAIBLE — Il y a déjà des signaux d'alerte. N'attends pas que ça s'aggrave.";couleur="#d4a017";}
+  else{msg="💚 Aucun signal d'alerte détecté. Mais fais toujours confiance à ton instinct.";couleur="#2d8a4e";}
+  z.innerHTML='<div style="padding:1rem;background:'+couleur+'22;border:2px solid '+couleur+';border-radius:12px;text-align:center"><strong style="color:'+couleur+'">'+oui+' / '+QUESTIONS_DANGER.length+' signaux détectés</strong><p style="margin-top:0.5rem;font-size:0.85rem">'+msg+'</p></div>';
+});
+
+// ============ PREUVES ============
+function afficherPreuves(){
+  const list=load(KEY_PREUVES,[]);
+  const z=document.getElementById("preuveList");
+  if(list.length===0){z.innerHTML='<p class="text-muted">Aucune preuve enregistrée pour le moment.</p>';return;}
+  z.innerHTML=list.map(function(p,i){
+    return '<div class="list-item">'+
+      '<button class="delete" data-type="preuve" data-i="'+i+'">×</button>'+
+      '<strong>'+p.date+' '+(p.heure||"")+'</strong>'+
+      (p.lieu?'<small>📍 '+p.lieu+'</small>':'')+
+      '<div style="margin-top:0.4rem;font-size:0.82rem">'+p.desc+'</div>'+
+      (p.temoins?'<small>👥 Témoins : '+p.temoins+'</small>':'')+
+    '</div>';
+  }).join("");
+  const dels=document.querySelectorAll(".delete[data-type='preuve']");
+  for(let i=0;i<dels.length;i++){
+    dels[i].addEventListener("click",function(){
+      if(!confirm("Supprimer cette preuve ?"))return;
+      const idx=parseInt(this.dataset.i);
+      const l=load(KEY_PREUVES,[]);
+      l.splice(idx,1);
+      save(KEY_PREUVES,l);
+      afficherPreuves();
+    });
+  }
+}
+document.getElementById("btnAddPreuve").addEventListener("click",function(){
+  const date=document.getElementById("preuve-date").value.trim();
+  const desc=document.getElementById("preuve-desc").value.trim();
+  if(!date||!desc){alert("La date et la description sont obligatoires");return}
+  const p={
+    date:date,
+    heure:document.getElementById("preuve-heure").value.trim(),
+    lieu:document.getElementById("preuve-lieu").value.trim(),
+    desc:desc,
+    temoins:document.getElementById("preuve-temoins").value.trim(),
+    ajout:Date.now()
+  };
+  const l=load(KEY_PREUVES,[]);
+  l.unshift(p);
+  save(KEY_PREUVES,l);
+  document.getElementById("preuve-date").value="";
+  document.getElementById("preuve-heure").value="";
+  document.getElementById("preuve-lieu").value="";
+  document.getElementById("preuve-desc").value="";
+  document.getElementById("preuve-temoins").value="";
+  afficherPreuves();
+  alert("✅ Preuve ajoutée et stockée en local.");
+});
+
+// ============ PIN PREUVES ============
+function majPinStatus(){
+  const z=document.getElementById("pinStatusPreuves");
+  if(!z) return;
+  if(load(KEY_PIN_ACTIF,false)){
+    z.innerHTML='<div style="padding:0.6rem;background:#2d8a4e22;border:1px solid #2d8a4e;border-radius:10px;color:#6ee7a3;font-size:0.85rem">🔒 Code PIN activé</div>'+
+      '<button class="primary small" id="btnDesactiverPin" style="background:linear-gradient(135deg,#c0392b,#e07070)">🔓 Désactiver</button>';
+    document.getElementById("btnDesactiverPin").addEventListener("click",function(){
+      if(!confirm("Désactiver la protection par code PIN ?")) return;
+      save(KEY_PIN_ACTIF,false);
+      save(KEY_PIN,"");
+      majPinStatus();
+    });
+  }else{
+    z.innerHTML='<div style="padding:0.6rem;background:#d4a01722;border:1px solid #d4a017;border-radius:10px;color:#d4a017;font-size:0.85rem">⚠️ Aucun code PIN — tes preuves sont visibles par quiconque a accès à ton téléphone</div>';
+  }
+}
+document.getElementById("btnActiverPinPreuves").addEventListener("click",function(){
+  if(load(KEY_PIN_ACTIF,false)){alert("Un code PIN est déjà activé.");return}
+  const code=prompt("Choisis un code à 4 chiffres (que tu retiendras) :");
+  if(!code||code.length!==4||isNaN(parseInt(code))){alert("Le code doit faire 4 chiffres.");return}
+  const code2=prompt("Confirme ton code :");
+  if(code!==code2){alert("Les codes ne correspondent pas.");return}
+  save(KEY_PIN,code);
+  save(KEY_PIN_ACTIF,true);
+  alert("✅ Code PIN activé. Il te sera demandé pour accéder aux preuves.");
+  majPinStatus();
+});
+
+// ============ EXPORT PREUVES ============
+document.getElementById("btnExportPreuves").addEventListener("click",async function(){
+  const list=load(KEY_PREUVES,[]);
+  if(list.length===0){alert("Aucune preuve à exporter.");return}
+  const txt=list.map(function(p,i){return (i+1)+". "+p.date+" "+(p.heure||"")+"\n"+(p.lieu?"Lieu : "+p.lieu+"\n":"")+p.desc+(p.temoins?"\nTémoins : "+p.temoins:"")}).join("\n\n");
+  try{
+    await navigator.clipboard.writeText(txt);
+    alert("✅ "+list.length+" preuves copiées dans le presse-papiers.\n\nColle-les dans une note sécurisée ou envoie-les à ton avocat.");
+  }catch(e){
+    alert("Voici tes preuves :\n\n"+txt.substring(0,500)+"...");
+  }
+});
+document.getElementById("btnResetPreuves").addEventListener("click",function(){
+  if(!confirm("⚠️ Cela va effacer TOUTES tes preuves.\n\nEs-tu sûre ?")) return;
+  if(!confirm("Dernière confirmation : effacer définitivement ?")) return;
+  save(KEY_PREUVES,[]);
+  afficherPreuves();
+  alert("Toutes les preuves ont été effacées.");
+});
+
+// ============ CONTACTS DE CONFIANCE ============
+function afficherContacts(){
+  const list=load(KEY_CONTACTS,[]);
+  const z=document.getElementById("contactList");
+  if(list.length===0){z.innerHTML='<p class="text-muted">Aucun contact ajouté.</p>';return;}
+  z.innerHTML=list.map(function(c,i){
+    return '<div class="list-item">'+
+      '<button class="delete" data-type="contact" data-i="'+i+'">×</button>'+
+      '<strong>'+c.nom+'</strong>'+
+      '<small>📞 '+c.tel+(c.code?' — code : '+c.code:'')+'</small>'+
+    '</div>';
+  }).join("");
+  const dels=document.querySelectorAll(".delete[data-type='contact']");
+  for(let i=0;i<dels.length;i++){
+    dels[i].addEventListener("click",function(){
+      const idx=parseInt(this.dataset.i);
+      const l=load(KEY_CONTACTS,[]);
+      l.splice(idx,1);
+      save(KEY_CONTACTS,l);
+      afficherContacts();
+    });
+  }
+}
+document.getElementById("btnAddContact").addEventListener("click",function(){
+  const nom=document.getElementById("contact-nom").value.trim();
+  const tel=document.getElementById("contact-tel").value.trim();
+  if(!nom||!tel){alert("Remplis le nom et le numéro");return}
+  const l=load(KEY_CONTACTS,[]);
+  l.push({nom:nom,tel:tel,code:document.getElementById("contact-code").value.trim()});
+  save(KEY_CONTACTS,l);
+  document.getElementById("contact-nom").value="";
+  document.getElementById("contact-tel").value="";
+  document.getElementById("contact-code").value="";
+  afficherContacts();
+});
+
+// ============ SOS ALL ============
+document.getElementById("btnSOSAll").addEventListener("click",function(){
+  const list=load(KEY_CONTACTS,[]);
+  if(list.length===0){alert("Ajoute d'abord au moins un contact de confiance.");return}
+  const msg="🆘 J'ai besoin d'aide. Contacte-moi ou appelle le 117. Merci.";
+  const nums=list.map(function(c){return c.tel.replace(/\s/g,"")}).join(",");
+  window.location.href="sms:"+nums+"?&body="+encodeURIComponent(msg);
+});
+document.getElementById("btnCopySOS").addEventListener("click",async function(){
+  const msg="🆘 J'ai besoin d'aide. Contacte-moi ou appelle le 117. Merci.";
+  try{await navigator.clipboard.writeText(msg);alert("📋 Message copié !");}catch(e){alert(msg)}
+});
+  
+// ============ RESPIRATION 4-7-8 ============
+let breathActive=false;
+function lancerRespiration(){
+  const circle=document.getElementById("breathCircle");
+  const btn=document.getElementById("btnBreath");
+  if(breathActive) return;
+  breathActive=true;
+  if(btn) btn.textContent="⏸️ En cours...";
+  let step=0;
+  function tick(){
+    if(!breathActive) return;
+    if(step===0){
+      circle.style.transform="scale(1.5)";
+      circle.textContent="Inspire (4)";
+      setTimeout(tick,4000);
+    }else if(step===1){
+      circle.textContent="Retiens (7)";
+      setTimeout(tick,7000);
+    }else if(step===2){
+      circle.style.transform="scale(1)";
+      circle.textContent="Expire (8)";
+      setTimeout(tick,8000);
+    }else{
+      step=-1;
+      setTimeout(tick,500);
+    }
+    step++;
+  }
+  tick();
+  setTimeout(function(){
+    breathActive=false;
+    circle.style.transform="scale(1)";
+    circle.textContent="Terminé";
+    if(btn) btn.textContent="▶️ Recommencer";
+  },60000);
+}
+document.getElementById("btnBreath").addEventListener("click",function(){
+  lancerRespiration();
+});
+
+// ============ ANCRAGE 5-4-3-2-1 ============
+const ANCRAGE_ETAPES=[
+  "👀 Nomme 5 choses que tu VOIS autour de toi…",
+  "👂 Nomme 4 choses que tu ENTENDS…",
+  "✋ Nomme 3 choses que tu TOUCHES…",
+  "👃 Nomme 2 choses que tu SENS (odeurs)…",
+  "👅 Nomme 1 chose que tu GOÛTES…",
+  "💚 Bravo ! Tu es revenue dans le présent."
+];
+let ancrageStep=0;
+let ancrageIv=null;
+document.getElementById("btnAncrage").addEventListener("click",function(){
+  const t=document.getElementById("ancrageText");
+  const btn=this;
+  if(ancrageIv){clearInterval(ancrageIv);ancrageIv=null;btn.textContent="▶️ Reprendre";return;}
+  btn.textContent="⏸️ En cours…";
+  ancrageStep=0;
+  t.textContent=ANCRAGE_ETAPES[0];
+  ancrageIv=setInterval(function(){
+    ancrageStep++;
+    if(ancrageStep>=ANCRAGE_ETAPES.length){
+      clearInterval(ancrageIv);
+      ancrageIv=null;
+      btn.textContent="🔄 Recommencer";
+      ancrageStep=0;
+      return;
+    }
+    t.textContent=ANCRAGE_ETAPES[ancrageStep];
+  },15000);
+});
+
+// ============ SONS APAISANTS ============
+let audioCtx=null;
+let stopFn=null;
+function stopSound(){
+  if(stopFn){try{stopFn()}catch(e){};stopFn=null;}
+}
+async function playBruit(type){
+  try{
+    stopSound();
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==="suspended") await audioCtx.resume();
+    const bufferSize=2*audioCtx.sampleRate;
+    const buffer=audioCtx.createBuffer(1,bufferSize,audioCtx.sampleRate);
+    const data=buffer.getChannelData(0);
+    let lastOut=0;
+    for(let i=0;i<bufferSize;i++){
+      const white=Math.random()*2-1;
+      if(type==="pluie"){data[i]=white*0.3;}
+      else{lastOut=(lastOut+0.02*white)/1.02;data[i]=lastOut*3.5;}
+    }
+    const source=audioCtx.createBufferSource();
+    source.buffer=buffer;
+    source.loop=true;
+    const gain=audioCtx.createGain();
+    gain.gain.value=0.4;
+    source.connect(gain);
+    gain.connect(audioCtx.destination);
+    source.start();
+    stopFn=function(){try{source.stop()}catch(e){}};
+  }catch(err){alert("❌ Son impossible : "+err.message);}
+}
+document.getElementById("btnAudioPluie").addEventListener("click",function(e){e.preventDefault();playBruit("pluie")});
+document.getElementById("btnAudioVagues").addEventListener("click",function(e){e.preventDefault();playBruit("vagues")});
+document.getElementById("btnAudioStop").addEventListener("click",function(e){e.preventDefault();stopSound()});
+
+// ============ INITIALISATION ============
+chargerPlan();
+injecterQuestions();
+afficherPreuves();
+afficherContacts();
+majPinStatus();
+
+// ============ PROTECTION PIN AU DÉMARRAGE ============
+function verifierPinAuDemarrage(){
+  if(!load(KEY_PIN_ACTIF,false)) return true;
+  const codeAttendu=load(KEY_PIN,"");
+  const code=prompt("🔒 Code PIN :");
+  if(code!==codeAttendu){
+    document.body.innerHTML='<div style="padding:3rem;text-align:center;color:#e8ecf8;background:#0a0e1a;min-height:100vh;font-family:sans-serif"><h1>🔒 Accès protégé</h1><p>Recharge la page pour réessayer.</p></div>';
+    return false;
+  }
+  return true;
+}
+setTimeout(function(){
+  verifierPinAuDemarrage();
+  console.log("💗 Mon Espace — chargé");
+},200);
+  
+// ============ AVANCÉES ============
+
+// ============ 1. BOUTON SOS FLOTTANT ============
+function ajouterBoutonFlottant(){
+  if(document.getElementById("floatSOS")) return;
+  const btn=document.createElement("a");
+  btn.href="tel:117";
+  btn.id="floatSOS";
+  btn.className="sos-float";
+  btn.innerHTML="🆘<br><small style='font-size:0.55rem'>117</small>";
+  document.body.appendChild(btn);
+}
+
+// ============ 2. MESSAGE D'ESPOIR ALÉATOIRE ============
+const MESSAGES_ESPOIR=[
+  "Tu n'es pas responsable. Tu mérites d'être en sécurité.",
+  "Ce que tu vis est grave. Ce n'est pas ta faute.",
+  "Tu es plus forte que tu ne le penses.",
+  "Demander de l'aide n'est pas une faiblesse.",
+  "Tu as le droit de dire non.",
+  "Tu mérites le respect et la dignité.",
+  "Un jour à la fois. Une heure à la fois.",
+  "Il y a des gens prêts à t'aider.",
+  "Ta vie compte. Tu comptes.",
+  "Tu mérites d'être aimée sans peur."
+];
+function injecterMessageEspoir(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("espoirBox")) return;
+  const msg=MESSAGES_ESPOIR[Math.floor(Math.random()*MESSAGES_ESPOIR.length)];
+  const box=document.createElement("div");
+  box.id="espoirBox";
+  box.className="card pink";
+  box.innerHTML='<div class="lbl">💗 Un mot pour toi</div><p style="font-size:1rem;font-style:italic">« '+msg+' »</p><button class="primary small" id="btnNewMessage" style="background:linear-gradient(135deg,#d946ef,#a78bfa)">🔄 Autre message</button>';
+  zone.insertBefore(box,zone.firstChild);
+  document.getElementById("btnNewMessage").addEventListener("click",function(){
+    document.getElementById("espoirBox").remove();
+    injecterMessageEspoir();
+  });
+}
+
+// ============ 3. BAGAGE D'URGENCE ============
+const KEY_BAGAGE="sosf_bagage_v1";
+function injecterBagage(){
+  const zone=document.getElementById("tab-plan");
+  if(!zone||document.getElementById("bagageBox")) return;
+  const items=[
+    "Papiers d'identité (passeport, carte d'identité)",
+    "Permis de séjour / titre de séjour",
+    "Cartes bancaires / argent liquide",
+    "Médicaments essentiels",
+    "Téléphone + chargeur",
+    "Clés de voiture",
+    "Vêtements de rechange",
+    "Affaires des enfants",
+    "Documents importants (assurance, bail, actes)",
+    "Ordonnances médicales",
+    "Carnet de vaccination des enfants",
+    "Adresses importantes (avocat, famille)"
+  ];
+  const saved=load(KEY_BAGAGE,{});
+  const box=document.createElement("div");
+  box.id="bagageBox";
+  box.className="card warn";
+  box.innerHTML=
+    '<h3>🧳 Bagage d\'urgence</h3>'+
+    '<p>Une liste pour préparer un sac discret au cas où tu devrais partir vite.</p>'+
+    items.map(function(item,i){
+      return '<label style="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid #1f2740;font-size:0.85rem;cursor:pointer">'+
+        '<input type="checkbox" class="bagage-chk" data-i="'+i+'" '+(saved[i]?"checked":"")+' style="width:20px;height:20px;margin:0">'+
+        '<span>'+item+'</span>'+
+      '</label>';
+    }).join("")+
+    '<p class="text-muted mt-2" style="font-size:0.75rem">💡 Garde ce sac chez un proche de confiance, pas chez toi.</p>';
+  zone.appendChild(box);
+  const chks=box.querySelectorAll(".bagage-chk");
+  for(let i=0;i<chks.length;i++){
+    chks[i].addEventListener("change",function(){
+      const idx=parseInt(this.dataset.i);
+      const s=load(KEY_BAGAGE,{});
+      s[idx]=this.checked?1:0;
+      save(KEY_BAGAGE,s);
+    });
+  }
+}
+
+// ============ 4. COMPTEUR "JOURS DE LIBERTÉ" ============
+const KEY_LIBERTE="sosf_liberte_v1";
+function injecterLiberte(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("liberteBox")) return;
+  const box=document.createElement("div");
+  box.id="liberteBox";
+  box.className="card good";
+  const start=load(KEY_LIBERTE,null);
+  if(!start){
+    box.innerHTML=
+      '<h3>🌱 Compteur de reconstruction</h3>'+
+      '<p>Si tu as quitté une situation violente, tu peux compter les jours depuis ce nouveau départ.</p>'+
+      '<button class="primary green small" id="btnStartLiberte">💚 Je commence aujourd\'hui</button>';
+  }else{
+    const days=Math.floor((Date.now()-start)/86400000);
+    box.innerHTML=
+      '<h3>🌱 Depuis ton nouveau départ</h3>'+
+      '<div style="text-align:center;font-size:2.5rem;font-weight:800;color:#6ee7a3;margin:0.5rem 0">'+days+'</div>'+
+      '<div style="text-align:center;font-size:0.9rem;color:#8892b0">jour'+(days>1?"s":"")+' de liberté</div>'+
+      '<p class="text-muted mt-2" style="text-align:center;font-size:0.8rem">Tu as fait le plus dur. Continue une journée à la fois. 💚</p>';
+  }
+  zone.appendChild(box);
+  const b=document.getElementById("btnStartLiberte");
+  if(b){
+    b.addEventListener("click",function(){
+      if(!confirm("Commencer le compteur aujourd'hui ?")) return;
+      save(KEY_LIBERTE,Date.now());
+      document.getElementById("liberteBox").remove();
+      injecterLiberte();
+    });
+  }
+}
+
+// ============ 5. SIGNAL DISCRET SMS ============
+function injecterSignalDiscret(){
+  const zone=document.getElementById("tab-proches");
+  if(!zone||document.getElementById("signalBox")) return;
+  const box=document.createElement("div");
+  box.id="signalBox";
+  box.className="card warn";
+  box.innerHTML=
+    '<h3>🚨 Signal discret</h3>'+
+    '<p>Envoie un message <strong>qui n\'a l\'air de rien</strong> pour alerter un proche sans que l\'agresseur comprenne.</p>'+
+    '<input type="text" id="codeDiscret" placeholder="Code que tu as défini (ex : fleur)">'+
+    '<input type="text" id="codeDiscretTel" placeholder="Numéro du proche">'+
+    '<button class="primary red small" id="btnSignal">📤 Envoyer le signal discret</button>'+
+    '<p class="text-muted mt-2" style="font-size:0.75rem">Le message envoyé sera : <em>"Est-ce que tu peux me rappeler quand tu peux ? Merci."</em> (anodin pour l\'agresseur, clair pour ton proche).</p>';
+  zone.appendChild(box);
+  document.getElementById("btnSignal").addEventListener("click",function(){
+    const tel=document.getElementById("codeDiscretTel").value.trim().replace(/\s/g,"");
+    if(!tel){alert("Remplis le numéro du proche.");return}
+    const msg="Est-ce que tu peux me rappeler quand tu peux ? Merci.";
+    window.location.href="sms:"+tel+"?&body="+encodeURIComponent(msg);
+  });
+}
+
+// ============ 6. AUTO-ÉVALUATION DU JOUR ============
+const KEY_HUMEUR_JOUR="sosf_humeur_v1";
+function injecterHumeurJour(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("humeurJourBox")) return;
+  const box=document.createElement("div");
+  box.id="humeurJourBox";
+  box.className="card";
+  box.innerHTML=
+    '<div class="lbl">😊 Comment te sens-tu aujourd\'hui ?</div>'+
+    '<div style="display:flex;gap:0.5rem;justify-content:space-between;margin:0.5rem 0">'+
+      '<button class="humeur-btn" data-v="1" style="flex:1;padding:0.8rem;border-radius:12px;border:2px solid #2a3350;background:#1a2036;color:#e8ecf8;font-size:1.5rem;cursor:pointer">😢</button>'+
+      '<button class="humeur-btn" data-v="2" style="flex:1;padding:0.8rem;border-radius:12px;border:2px solid #2a3350;background:#1a2036;color:#e8ecf8;font-size:1.5rem;cursor:pointer">😕</button>'+
+      '<button class="humeur-btn" data-v="3" style="flex:1;padding:0.8rem;border-radius:12px;border:2px solid #2a3350;background:#1a2036;color:#e8ecf8;font-size:1.5rem;cursor:pointer">😐</button>'+
+      '<button class="humeur-btn" data-v="4" style="flex:1;padding:0.8rem;border-radius:12px;border:2px solid #2a3350;background:#1a2036;color:#e8ecf8;font-size:1.5rem;cursor:pointer">🙂</button>'+
+      '<button class="humeur-btn" data-v="5" style="flex:1;padding:0.8rem;border-radius:12px;border:2px solid #2a3350;background:#1a2036;color:#e8ecf8;font-size:1.5rem;cursor:pointer">😄</button>'+
+    '</div>'+
+    '<div id="humeurHist" style="margin-top:0.5rem"></div>';
+  zone.appendChild(box);
+  const btns=box.querySelectorAll(".humeur-btn");
+  const today=new Date().toDateString();
+  for(let i=0;i<btns.length;i++){
+    btns[i].addEventListener("click",function(){
+      const v=parseInt(this.dataset.v);
+      const hist=load(KEY_HUMEUR_JOUR,[]);
+      const filtres=hist.filter(function(h){return new Date(h.date).toDateString()!==today});
+      filtres.unshift({valeur:v,date:Date.now()});
+      save(KEY_HUMEUR_JOUR,filtres.slice(0,30));
+      alert("✅ Humeur enregistrée !");
+      afficherHistHumeur();
+    });
+  }
+  afficherHistHumeur();
+}
+function afficherHistHumeur(){
+  const z=document.getElementById("humeurHist");
+  if(!z) return;
+  const h=load(KEY_HUMEUR_JOUR,[]);
+  if(h.length===0){z.innerHTML='<p class="text-muted" style="font-size:0.75rem">Pas encore d\'humeur enregistrée.</p>';return}
+  const emos=["","😢","😕","😐","🙂","😄"];
+  z.innerHTML='<div class="lbl">📈 Tes 7 derniers jours</div><div style="display:flex;gap:0.3rem;justify-content:space-between">'+
+    h.slice(0,7).reverse().map(function(e){
+      const d=new Date(e.date);
+      return '<div style="text-align:center;flex:1"><div style="font-size:1.2rem">'+emos[e.valeur]+'</div><small style="font-size:0.6rem;color:#8892b0">'+d.getDate()+'/'+(d.getMonth()+1)+'</small></div>';
+    }).join("")+'</div>';
+}
+
+// ============ 7. DÉTECTION DÉTRESSE DANS LE PLAN ============
+const MOTS_DETRESSE=["mourir","suicide","finir","disparaître","plus envie","abandonner","je n'en peux plus","j'en peux plus"];
+function detecterDetresse(texte){
+  if(!texte) return false;
+  const t=texte.toLowerCase();
+  for(let i=0;i<MOTS_DETRESSE.length;i++){if(t.indexOf(MOTS_DETRESSE[i])!==-1) return true;}
+  return false;
+}
+const champsPlan=["plan-signaux","plan-raisons","plan-forces"];
+for(let i=0;i<champsPlan.length;i++){
+  const el=document.getElementById(champsPlan[i]);
+  if(el){
+    el.addEventListener("blur",function(){
+      if(detecterDetresse(this.value)){
+        if(confirm("💚 J'ai vu des mots difficiles dans ce que tu as écrit.\n\nVeux-tu voir les ressources pour t'aider maintenant ?")){
+          switchTab("ressources");
+        }
+      }
+    });
+  }
+}
+
+// ============ 8. MESSAGE SELON L'HEURE ============
+function messageSelonHeure(){
+  const h=new Date().getHours();
+  let msg="";
+  if(h>=5 && h<12) msg="🌅 Bonjour. Tu es là, c'est déjà bien.";
+  else if(h>=12 && h<18) msg="☀️ Bon après-midi. Une heure à la fois.";
+  else if(h>=18 && h<23) msg="🌆 Bonsoir. Tu tiens le coup, c'est courageux.";
+  else msg="🌙 Il est tard. Tu n'es pas seule.";
+  const sub=document.querySelector(".sub");
+  if(sub) sub.textContent=msg;
+}
+
+// ============ 9. BANDEAU CONFIANCE ============
+function injecterBandeauConfiance(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("confianceBox")) return;
+  const box=document.createElement("div");
+  box.id="confianceBox";
+  box.className="card good";
+  box.innerHTML=
+    '<h3>🔒 Ta confidentialité</h3>'+
+    '<div class="row"><span class="row-value">✅ Aucune donnée envoyée sur Internet</span></div>'+
+    '<div class="row"><span class="row-value">✅ Tout reste sur ton iPhone uniquement</span></div>'+
+    '<div class="row"><span class="row-value">✅ Aucun compte à créer</span></div>'+
+    '<div class="row"><span class="row-value">✅ Aucun pistage, aucune publicité</span></div>'+
+    '<div class="row"><span class="row-value">✅ Tu peux tout effacer en 1 clic</span></div>';
+  zone.appendChild(box);
+}
+
+// ============ 10. DIAPORAMA MOTIVATION ============
+function injecterDiapo(){
+  const sub=document.querySelector(".sub");
+  if(!sub||sub.dataset.diapo) return;
+  sub.dataset.diapo="1";
+  setInterval(function(){
+    const i=Math.floor(Math.random()*MESSAGES_ESPOIR.length);
+    sub.textContent="💗 "+MESSAGES_ESPOIR[i];
+  },30000);
+}
+
+// ============ LANCEMENT DES BLOCS AVANCÉS ============
+setTimeout(function(){
+  ajouterBoutonFlottant();
+  injecterMessageEspoir();
+  injecterBagage();
+  injecterLiberte();
+  injecterSignalDiscret();
+  injecterHumeurJour();
+  injecterBandeauConfiance();
+  messageSelonHeure();
+  injecterDiapo();
+  console.log("💗 Bloc 5 chargé — fonctionnalités avancées");
+},500);
+  
+// ============ ONGLET DROITS AVANCÉ ============
+const KEY_NOTES_DROITS="sosf_notes_droits_v1";
+function injecterNotesDroits(){
+  const zone=document.getElementById("tab-droits");
+  if(!zone||document.getElementById("notesDroitsBox")) return;
+  const box=document.createElement("div");
+  box.id="notesDroitsBox";
+  box.className="card";
+  box.innerHTML=
+    '<h3>📝 Mes notes juridiques</h3>'+
+    '<p>Note ici les infos importantes : nom de ton avocat, numéro de dossier, dates clés…</p>'+
+    '<textarea id="notesDroits" placeholder="Ex : Avocat Me Dupont - 022 000 00 00. Plainte déposée le 15.03.2026..." style="min-height:120px"></textarea>'+
+    '<button class="primary small" id="btnSaveNotesDroits">💾 Sauvegarder</button>';
+  zone.appendChild(box);
+  document.getElementById("notesDroits").value=load(KEY_NOTES_DROITS,"");
+  document.getElementById("btnSaveNotesDroits").addEventListener("click",function(){
+    save(KEY_NOTES_DROITS,document.getElementById("notesDroits").value);
+    alert("✅ Notes sauvegardées sur ton iPhone");
+  });
+}
+
+// ============ RACCOURCIS RAPIDES ============
+function injecterRaccourcis(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("raccourcisBox")) return;
+  const box=document.createElement("div");
+  box.id="raccourcisBox";
+  box.className="card";
+  box.innerHTML=
+    '<div class="lbl">⚡ Raccourcis rapides</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem">'+
+      '<a href="tel:117" style="text-decoration:none;background:linear-gradient(135deg,#c0392b,#e07070);color:#fff;padding:0.9rem;border-radius:12px;text-align:center;font-weight:700;font-size:0.85rem">🚨 Police<br>117</a>'+
+      '<a href="tel:0800909090" style="text-decoration:none;background:linear-gradient(135deg,#d946ef,#a78bfa);color:#fff;padding:0.9rem;border-radius:12px;text-align:center;font-weight:700;font-size:0.85rem">💗 Violences<br>0800</a>'+
+      '<a href="tel:144" style="text-decoration:none;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;padding:0.9rem;border-radius:12px;text-align:center;font-weight:700;font-size:0.85rem">🚑 Ambulance<br>144</a>'+
+      '<a href="tel:143" style="text-decoration:none;background:linear-gradient(135deg,#4a9eff,#7c5cff);color:#fff;padding:0.9rem;border-radius:12px;text-align:center;font-weight:700;font-size:0.85rem">💬 Écoute<br>143</a>'+
+    '</div>';
+  zone.appendChild(box);
+}
+
+// ============ BILAN DE PROGRESSION ============
+function injecterBilan(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("bilanBox")) return;
+  const preuves=load(KEY_PREUVES,[]).length;
+  const contacts=load(KEY_CONTACTS,[]).length;
+  const plan=load(KEY_PLAN,{});
+  let planRemplis=0;
+  for(let k in plan){if(plan[k]&&plan[k].length>0) planRemplis++;}
+  const box=document.createElement("div");
+  box.id="bilanBox";
+  box.className="card";
+  box.innerHTML=
+    '<div class="lbl">📊 Ta progression</div>'+
+    '<div class="row"><span class="row-label">📝 Preuves enregistrées</span><span class="row-value" style="color:#d946ef">'+preuves+'</span></div>'+
+    '<div class="row"><span class="row-label">📞 Contacts de confiance</span><span class="row-value" style="color:#6ee7a3">'+contacts+'</span></div>'+
+    '<div class="row"><span class="row-label">🛡️ Plan de sécurité</span><span class="row-value" style="color:#4a9eff">'+planRemplis+'/6</span></div>'+
+    '<div class="row"><span class="row-label">🔒 Code PIN</span><span class="row-value" style="color:'+(load(KEY_PIN_ACTIF,false)?"#6ee7a3":"#e07070")+'">'+(load(KEY_PIN_ACTIF,false)?"Activé":"Inactif")+'</span></div>';
+  zone.appendChild(box);
+}
+
+// ============ MESSAGE DE FIN ============
+function injecterMessageFin(){
+  const zone=document.getElementById("tab-accueil");
+  if(!zone||document.getElementById("finBox")) return;
+  const box=document.createElement("div");
+  box.id="finBox";
+  box.className="card pink";
+  box.style.textAlign="center";
+  box.innerHTML=
+    '<div style="font-size:2.5rem;margin-bottom:0.5rem">💗</div>'+
+    '<h3>Tu n\'es pas seule</h3>'+
+    '<p style="font-size:0.9rem;line-height:1.7">Chaque pas que tu fais compte.<br>Chaque jour est une victoire.<br>Tu mérites d\'être libre, respectée et aimée.</p>'+
+    '<p style="font-size:0.85rem;color:#d946ef;font-weight:600;margin-top:0.8rem">Si tu es en danger : appelle le 117 ou le 0800 90 90 90.</p>';
+  zone.appendChild(box);
+}
+
+// ============ LANCEMENT FINAL ============
+setTimeout(function(){
+  injecterNotesDroits();
+  injecterRaccourcis();
+  injecterBilan();
+  injecterMessageFin();
+  console.log("💗 Mon Espace — TOUTES les fonctionnalités chargées");
+},800);
+</script>
+</body>
+</html>
