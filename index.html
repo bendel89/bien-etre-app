@@ -60,14 +60,17 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
 .list-item strong{color:#e8ecf8}
 .list-item small{color:#8892b0;display:block;margin-top:0.2rem}
 .sos-float{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 1rem);right:1rem;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e07070);color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;box-shadow:0 6px 20px rgba(192,57,43,0.5);z-index:100;animation:pulse 2.5s infinite}
+.article{background:#1a2036;border-radius:12px;padding:0.8rem;margin-bottom:0.5rem;cursor:pointer;font-size:0.85rem}
+.article-title{font-weight:600;color:#d946ef;margin-bottom:0.3rem}
+.article-content{color:#a8b0c8;font-size:0.8rem;line-height:1.6;display:none;margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid #2a3350}
+.article.open .article-content{display:block}
 </style>
 </head>
-<body>
+  <body>
 
 <h1>💗 Mon Espace</h1>
 <p class="sub">Tu n'es pas seule. Des ressources et de l'aide sont là.</p>
 
-<!-- 🚨 BANDEAU URGENCE PERMANENT -->
 <div class="urgence pulse">
   <div class="urgence-title">🚨 URGENCE — Appel direct</div>
   <div class="urgence-row">
@@ -77,7 +80,6 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 </div>
 
-<!-- 📑 ONGLETS -->
 <div class="tabs">
   <div class="tab active" data-tab="accueil">🏠 Accueil</div>
   <div class="tab" data-tab="plan">🛡️ Plan</div>
@@ -88,9 +90,7 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   <div class="tab" data-tab="proches">❤️ Proches</div>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 1 : ACCUEIL -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET ACCUEIL ============ -->
 <div id="tab-accueil">
   <div class="card pink">
     <h3>💗 Tu es au bon endroit</h3>
@@ -107,10 +107,10 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
 
   <div class="card warn">
     <h3>📱 Comment utiliser cette app en sécurité</h3>
-    <p>• <strong>Renomme l'app</strong> en quelque chose de banal (dans Réglages iPhone)</p>
+    <p>• <strong>Renomme l'app</strong> en quelque chose de banal (Réglages iPhone)</p>
     <p>• <strong>Vide l'historique</strong> régulièrement (Safari → Effacer historique)</p>
     <p>• <strong>N'utilise pas</strong> cette app devant la personne violente</p>
-    <p>• <strong>Active un code PIN</strong> dans l'onglet Plan → Protections</p>
+    <p>• <strong>Active un code PIN</strong> dans l'onglet Preuves</p>
     <p>• <strong>Fais confiance à ton instinct</strong> : si tu as peur, tu as raison de te protéger.</p>
   </div>
 
@@ -120,7 +120,7 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
     <p><strong>1.</strong> Va dans un endroit sûr (salle de bain, chez un voisin, dehors)</p>
     <p><strong>2.</strong> Appelle le <strong>117</strong> (Police) ou le <strong>144</strong> (Ambulance)</p>
     <p><strong>3.</strong> Si tu ne peux pas parler, dis juste <strong>"Police"</strong> ou <strong>"Ambulance"</strong></p>
-    <p><strong>4.</strong> Envoie un SOS à un contact de confiance (voir onglet Proches)</p>
+    <p><strong>4.</strong> Envoie un SOS à un contact de confiance (onglet Proches)</p>
     <a href="tel:117" class="primary red" style="text-decoration:none;display:block;text-align:center;margin-top:0.5rem">📞 Appeler la Police — 117</a>
   </div>
 
@@ -140,9 +140,7 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 2 : PLAN DE SÉCURITÉ -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET PLAN ============ -->
 <div id="tab-plan" class="hidden">
   <div class="card">
     <h3>🛡️ Mon Plan de Sécurité</h3>
@@ -158,18 +156,18 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 
   <div class="card">
-    <div class="lbl">1. Signaux d'alerte (ce qui déclenche la violence)</div>
-    <textarea id="plan-signaux" placeholder="Ex : quand il boit, quand je rentre tard, quand je vois mes amies..."></textarea>
+    <div class="lbl">1. Signaux d'alerte</div>
+    <textarea id="plan-signaux" placeholder="Ex : quand il boit, quand je rentre tard..."></textarea>
   </div>
 
   <div class="card">
     <div class="lbl">2. Endroits sûrs</div>
-    <textarea id="plan-endroits" placeholder="Ex : salle de bain, chambre de ma sœur, café du coin, commissariat..."></textarea>
+    <textarea id="plan-endroits" placeholder="Ex : salle de bain, chambre de ma sœur, café du coin..."></textarea>
   </div>
 
   <div class="card">
     <div class="lbl">3. Personnes de confiance</div>
-    <textarea id="plan-personnes" placeholder="Ex : ma sœur, ma meilleure amie, ma voisine du 3e..."></textarea>
+    <textarea id="plan-personnes" placeholder="Ex : ma sœur, ma meilleure amie..."></textarea>
   </div>
 
   <div class="card">
@@ -178,26 +176,24 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 
   <div class="card">
-    <div class="lbl">5. Mes raisons de partir / de me protéger</div>
-    <textarea id="plan-raisons" placeholder="Ex : mes enfants, ma santé, ma liberté, ma vie..."></textarea>
+    <div class="lbl">5. Mes raisons de partir</div>
+    <textarea id="plan-raisons" placeholder="Ex : mes enfants, ma santé, ma liberté..."></textarea>
   </div>
 
   <div class="card">
     <div class="lbl">6. Mes forces</div>
-    <textarea id="plan-forces" placeholder="Ex : je suis courageuse, je sais me débrouiller, j'ai un travail..."></textarea>
+    <textarea id="plan-forces" placeholder="Ex : je suis courageuse, j'ai un travail..."></textarea>
   </div>
 
   <button class="primary green" id="btnSavePlan">💾 Sauvegarder mon plan</button>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 3 : PREUVES -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET PREUVES ============ -->
 <div id="tab-preuves" class="hidden">
   <div class="card bad">
     <h3>📸 Preuves (confidentiel)</h3>
     <p>Toutes les preuves sont stockées <strong>uniquement sur ton iPhone</strong>. Aucune donnée n'est envoyée sur Internet.</p>
-    <p><strong>⚠️ Important</strong> : si tu veux les utiliser en justice, garde une <strong>copie sécurisée ailleurs</strong> (chez un proche de confiance, avocat, ou cloud protégé).</p>
+    <p><strong>⚠️</strong> Si tu veux les utiliser en justice, garde une <strong>copie sécurisée ailleurs</strong>.</p>
   </div>
 
   <div class="card">
@@ -211,7 +207,7 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 
   <div class="card">
-    <div class="lbl">🔐 Protéger mes preuves par code PIN</div>
+    <div class="lbl">🔐 Protéger par code PIN</div>
     <button class="primary small" id="btnActiverPinPreuves">🔒 Activer un code PIN</button>
     <div id="pinStatusPreuves" class="mt-2"></div>
   </div>
@@ -223,14 +219,12 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
 
   <div class="card">
     <div class="lbl">💾 Export / Sauvegarde</div>
-    <button class="primary small" id="btnExportPreuves">📤 Copier mes preuves (presse-papiers)</button>
+    <button class="primary small" id="btnExportPreuves">📤 Copier mes preuves</button>
     <button class="primary small" id="btnResetPreuves" style="background:linear-gradient(135deg,#c0392b,#e07070);margin-top:0.5rem">🗑️ Tout effacer</button>
   </div>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 4 : RESSOURCES -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET RESSOURCES ============ -->
 <div id="tab-ressources" class="hidden">
   <div class="card pink">
     <h3>🗺️ Ressources d'aide</h3>
@@ -246,47 +240,31 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 
   <div class="card">
-    <div class="lbl">🏠 Foyers d'accueil (Suisse)</div>
-    <div class="row"><span class="row-value">📍 <strong>Genève</strong> — Au Cœur des Grottes</span></div>
-    <div class="row"><span class="row-value">📍 <strong>Vaud</strong> — Centre Malley Prairie</span></div>
-    <div class="row"><span class="row-value">📍 <strong>Fribourg</strong> — Solidarité Femmes</span></div>
-    <div class="row"><span class="row-value">📍 <strong>Valais</strong> — Centre de la Bourgeoisie</span></div>
-    <div class="row"><span class="row-value">📍 <strong>Neuchâtel</strong> — Solidarité Femmes</span></div>
-    <div class="row"><span class="row-value">📍 <strong>Berne</strong> — Frauenhaus Bern</span></div>
-    <div class="row"><span class="row-value">📍 <strong>Zurich</strong> — Frauenhaus Zürich</span></div>
-    <p class="text-muted mt-1">Appelle le <strong>0800 90 90 90</strong> pour être orientée vers le foyer le plus proche.</p>
-  </div>
-
-  <div class="card">
-    <div class="lbl">🌐 Sites utiles</div>
-    <a href="https://www.violencequefaire.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 violencequefaire.ch</a>
-    <a href="https://www.femmes-solidarite.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 femmes-solidarite.ch</a>
-    <a href="https://www.centre-femmes.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 centre-femmes.ch</a>
-    <a href="https://www.violencequefaire.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.8rem;border-radius:12px;text-align:center;font-weight:600">🌐 SOS Femmes</a>
+    <div class="lbl">🌐 Site officiel suisse</div>
+    <a href="https://www.violencequefaire.ch" target="_blank" style="text-decoration:none;display:block;background:#1a2036;color:#d946ef;padding:0.9rem;border-radius:12px;text-align:center;font-weight:600;margin-bottom:0.5rem">🌐 violencequefaire.ch</a>
+    <p class="text-muted" style="font-size:0.8rem">Des spécialistes répondent personnellement à tes questions anonymes sur la violence au sein du couple.</p>
   </div>
 
   <div class="card">
     <div class="lbl">👶 Aide pour les enfants</div>
-    <a href="tel:147" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d97706,#f59e0b);margin-bottom:0.5rem">📞 Pro Juventute — 147</a>
-    <p class="text-muted">Aide aux enfants et adolescents en danger.</p>
+    <a href="tel:147" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d97706,#f59e0b)">📞 Pro Juventute — 147</a>
+    <p class="text-muted mt-1">Aide aux enfants et adolescents en danger.</p>
   </div>
 
   <div class="card">
     <div class="lbl">⚖️ Aide juridique</div>
-    <p class="text-muted">Pour un conseil juridique gratuit et confidentiel :</p>
+    <p class="text-muted">Pour un conseil juridique gratuit :</p>
     <a href="tel:0800909090" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#d946ef,#a78bfa)">📞 0800 90 90 90</a>
   </div>
 
   <div class="card">
     <div class="lbl">🧠 Aide psychologique</div>
-    <a href="tel:143" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#4a9eff,#7c5cff);margin-bottom:0.5rem">📞 La Main Tendue — 143</a>
-    <p class="text-muted">Écoute gratuite 24h/24, anonyme.</p>
+    <a href="tel:143" class="primary small" style="text-decoration:none;display:block;text-align:center;background:linear-gradient(135deg,#4a9eff,#7c5cff)">📞 La Main Tendue — 143</a>
+    <p class="text-muted mt-1">Écoute gratuite 24h/24, anonyme.</p>
   </div>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 5 : DROITS -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET DROITS ============ -->
 <div id="tab-droits" class="hidden">
   <div class="card">
     <h3>⚖️ Tes droits en Suisse</h3>
@@ -296,49 +274,48 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   <div class="card good">
     <h3>✅ Ce que la loi te garantit</h3>
     <div class="row"><span class="row-value">🚫 <strong>Interdit</strong> : violence physique, sexuelle, psychologique, économique</span></div>
-    <div class="row"><span class="row-value">🏠 <strong>Droit</strong> de quitter le domicile conjugal</span></div>
-    <div class="row"><span class="row-value">📞 <strong>Droit</strong> d'appeler la police à tout moment</span></div>
-    <div class="row"><span class="row-value">👮 <strong>Droit</strong> de porter plainte (même contre un proche)</span></div>
-    <div class="row"><span class="row-value">🏥 <strong>Droit</strong> de te faire examiner par un médecin</span></div>
+    <div class="row"><span class="row-value">🏠 <strong>Droit</strong> de quitter le domicile</span></div>
+    <div class="row"><span class="row-value">📞 <strong>Droit</strong> d'appeler la police</span></div>
+    <div class="row"><span class="row-value">👮 <strong>Droit</strong> de porter plainte</span></div>
+    <div class="row"><span class="row-value">🏥 <strong>Droit</strong> à un examen médical</span></div>
     <div class="row"><span class="row-value">⚖️ <strong>Droit</strong> à un avocat gratuit si revenus faibles</span></div>
   </div>
 
   <div class="card warn">
     <h3>📋 Que faire en cas de violence</h3>
-    <p><strong>1.</strong> Mets-toi en sécurité (endroit sûr, dehors)</p>
+    <p><strong>1.</strong> Mets-toi en sécurité</p>
     <p><strong>2.</strong> Appelle la Police : <strong>117</strong></p>
     <p><strong>3.</strong> Fais constater les blessures chez un médecin</p>
-    <p><strong>4.</strong> Porte plainte au commissariat (dans les 3 mois, ou 10 ans pour violences graves)</p>
-    <p><strong>5.</strong> Garde toutes les preuves (photos, messages, témoins)</p>
-    <p><strong>6.</strong> Demande une <strong>ordonnance de protection</strong> au tribunal</p>
+    <p><strong>4.</strong> Porte plainte au commissariat</p>
+    <p><strong>5.</strong> Garde toutes les preuves</p>
+    <p><strong>6.</strong> Demande une <strong>ordonnance de protection</strong></p>
   </div>
 
   <div class="card bad">
     <h3>🚫 Ce que tu n'es PAS obligée de faire</h3>
     <div class="row"><span class="row-value">❌ <strong>Pardonner</strong> à l'agresseur</span></div>
     <div class="row"><span class="row-value">❌ <strong>Rester</strong> pour les enfants</span></div>
-    <div class="row"><span class="row-value">❌ <strong>Accepter</strong> les excuses répétées</span></div>
-    <div class="row"><span class="row-value">❌ <strong>Cacher</strong> la vérité à ta famille</span></div>
-    <div class="row"><span class="row-value">❌ <strong>Te sentir coupable</strong> — tu n'es jamais responsable</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Accepter</strong> les excuses</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Cacher</strong> la vérité</span></div>
+    <div class="row"><span class="row-value">❌ <strong>Te sentir coupable</strong></span></div>
   </div>
 
   <div class="card">
-    <h3>📞 Démarches concrètes</h3>
-    <p><strong>• Plainte</strong> : commissariat de police → gratuit</p>
-    <p><strong>• Ordonnance de protection</strong> : tribunal → gratuit</p>
-    <p><strong>• Aide juridique</strong> : 0800 90 90 90</p>
-    <p><strong>• Constat médical</strong> : médecin ou hôpital → garde le certificat</p>
-    <p><strong>• Main courante</strong> : signale les faits sans porter plainte</p>
+    <h3>💬 Que dire à la police</h3>
+    <p><strong>Si tu appelles le 117 :</strong></p>
+    <p>• « J'ai besoin d'aide, mon conjoint est violent. »</p>
+    <p>• « Je suis à [adresse]. »</p>
+    <p>• « Il y a des enfants présents. »</p>
+    <p>• « J'ai peur pour ma vie. »</p>
+    <p class="text-muted mt-1">Tu peux demander une <strong>intervention sans plainte</strong> pour commencer.</p>
   </div>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 6 : CALME -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET CALME ============ -->
 <div id="tab-calme" class="hidden">
   <div class="card">
     <h3>🧘 Retrouver le calme</h3>
-    <p>Quand la peur ou le stress montent, ces outils peuvent t'aider à te calmer.</p>
+    <p>Quand la peur ou le stress montent, ces outils peuvent t'aider.</p>
   </div>
 
   <div class="card warn">
@@ -352,7 +329,6 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
 
   <div class="card">
     <h3>🌍 Ancrage 5-4-3-2-1</h3>
-    <p>Ramène ton esprit dans le présent :</p>
     <div id="ancrageText" style="min-height:3rem;text-align:center;padding:1rem;background:#1a2036;border-radius:12px;font-weight:600">Appuie sur ▶️</div>
     <button class="primary small mt-1" id="btnAncrage">▶️ Commencer</button>
   </div>
@@ -374,16 +350,13 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
 
   <div class="card">
     <h3>🎵 Sons apaisants</h3>
-    <p>Un fond sonore pour te calmer.</p>
     <button class="primary small" id="btnAudioPluie" type="button">🌧️ Pluie</button>
     <button class="primary small" id="btnAudioVagues" type="button">🌊 Vagues</button>
     <button class="primary small" id="btnAudioStop" type="button" style="background:linear-gradient(135deg,#c0392b,#e07070)">⏹️ Arrêter</button>
   </div>
 </div>
 
-<!-- ===================================================== -->
-<!-- ONGLET 7 : PROCHES -->
-<!-- ===================================================== -->
+<!-- ============ ONGLET PROCHES ============ -->
 <div id="tab-proches" class="hidden">
   <div class="card bad">
     <h3>❤️ Mes contacts de confiance</h3>
@@ -391,8 +364,8 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 
   <div class="card">
-    <div class="lbl">➕ Ajouter un contact de confiance</div>
-    <input type="text" id="contact-nom" placeholder="Prénom (ex : Marie)">
+    <div class="lbl">➕ Ajouter un contact</div>
+    <input type="text" id="contact-nom" placeholder="Prénom">
     <input type="tel" id="contact-tel" placeholder="Numéro">
     <input type="text" id="contact-code" placeholder="Code secret (ex : le mot 'fleur')">
     <button class="primary green small" id="btnAddContact">➕ Ajouter ce contact</button>
@@ -400,34 +373,33 @@ button.small{padding:0.6rem;font-size:0.85rem;margin-top:0.4rem}
   </div>
 
   <div class="card warn">
-    <h3>🆘 Envoie un SOS à tous tes contacts</h3>
-    <p>Un SMS avec ta position approximative sera envoyé à tous tes contacts de confiance.</p>
+    <h3>🆘 Envoie un SOS à tous</h3>
+    <p>Un SMS sera envoyé à tous tes contacts de confiance.</p>
     <button class="primary red" id="btnSOSAll">🆘 ENVOYER LE SOS</button>
   </div>
 
   <div class="card">
-    <h3>💬 Exemple de message SOS</h3>
+    <h3>💬 Message SOS type</h3>
     <p style="font-style:italic;background:#1a2036;padding:0.8rem;border-radius:12px">« 🆘 J'ai besoin d'aide. Contacte-moi ou appelle le 117. Merci. »</p>
     <button class="primary small" id="btnCopySOS">📋 Copier ce message</button>
   </div>
 
   <div class="card good">
     <h3>❤️ Pour les proches</h3>
-    <p><strong>Si tu reçois un SOS de ta proche :</strong></p>
+    <p><strong>Si tu reçois un SOS :</strong></p>
     <p>• <strong>Appelle-la tout de suite</strong></p>
     <p>• <strong>Écoute</strong> sans juger</p>
-    <p>• <strong>Ne lui dis pas</strong> « quitte-le » (elle seule peut décider)</p>
+    <p>• <strong>Ne lui dis pas</strong> « quitte-le »</p>
     <p>• <strong>Propose un endroit sûr</strong></p>
     <p>• <strong>Appelle le 117</strong> si danger immédiat</p>
   </div>
 </div>
 
-<!-- Pied de page -->
 <div class="note">
   🔒 Application 100 % confidentielle — Aucune donnée envoyée sur Internet.<br>
   Si tu es en danger immédiat : <strong>117</strong> (Police) ou <strong>144</strong> (Ambulance).
 </div>
-<script>
+    <script>
 // ============ NAVIGATION ============
 function switchTab(name){
   const tabs=document.querySelectorAll(".tab");
@@ -442,13 +414,17 @@ function switchTab(name){
 const tabEls=document.querySelectorAll(".tab");
 for(let i=0;i<tabEls.length;i++){tabEls[i].addEventListener("click",function(){switchTab(this.dataset.tab)});}
 
-// ============ STOCKAGE SÉCURISÉ ============
+// ============ STOCKAGE ============
 const KEY_PLAN="sosf_plan_v1";
 const KEY_PREUVES="sosf_preuves_v1";
 const KEY_CONTACTS="sosf_contacts_v1";
 const KEY_PIN="sosf_pin_v1";
 const KEY_PIN_ACTIF="sosf_pin_actif_v1";
 const KEY_DANGER="sosf_danger_v1";
+const KEY_OBJECTIFS="sosf_objectifs_v1";
+const KEY_HUMEUR="sosf_humeur_v1";
+const KEY_LIBERTE="sosf_liberte_v1";
+const KEY_BAGAGE="sosf_bagage_v1";
 
 function load(key,def){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(def))}catch(e){return def}}
 function save(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch(e){}}
@@ -498,8 +474,8 @@ function injecterQuestions(){
     return '<div style="padding:0.5rem 0;border-bottom:1px solid #1f2740">'+
       '<div style="font-size:0.85rem;margin-bottom:0.4rem">'+q+'</div>'+
       '<div style="display:flex;gap:0.5rem">'+
-        '<button class="danger-btn '+(stored[i]===1?"active":"")+'" data-i="'+i+'" data-v="1" style="flex:1;padding:0.5rem;border-radius:10px;border:1px solid '+(stored[i]===1?"#c0392b":"#2a3350")+';background:'+(stored[i]===1?"#c0392b":"#1a2036")+';color:#fff;font-size:0.8rem;cursor:pointer">Oui</button>'+
-        '<button class="danger-btn '+(stored[i]===0?"active":"")+'" data-i="'+i+'" data-v="0" style="flex:1;padding:0.5rem;border-radius:10px;border:1px solid '+(stored[i]===0?"#2d8a4e":"#2a3350")+';background:'+(stored[i]===0?"#2d8a4e":"#1a2036")+';color:#fff;font-size:0.8rem;cursor:pointer">Non</button>'+
+        '<button class="danger-btn" data-i="'+i+'" data-v="1" style="flex:1;padding:0.5rem;border-radius:10px;border:1px solid '+(stored[i]===1?"#c0392b":"#2a3350")+';background:'+(stored[i]===1?"#c0392b":"#1a2036")+';color:#fff;font-size:0.8rem;cursor:pointer">Oui</button>'+
+        '<button class="danger-btn" data-i="'+i+'" data-v="0" style="flex:1;padding:0.5rem;border-radius:10px;border:1px solid '+(stored[i]===0?"#2d8a4e":"#2a3350")+';background:'+(stored[i]===0?"#2d8a4e":"#1a2036")+';color:#fff;font-size:0.8rem;cursor:pointer">Non</button>'+
       '</div>'+
     '</div>';
   }).join("");
@@ -511,6 +487,7 @@ function injecterQuestions(){
       const d=load(KEY_DANGER,{});
       d[idx]=v;
       save(KEY_DANGER,d);
+      z.dataset.ok="";
       injecterQuestions();
     });
   }
@@ -584,7 +561,7 @@ function majPinStatus(){
   const z=document.getElementById("pinStatusPreuves");
   if(!z) return;
   if(load(KEY_PIN_ACTIF,false)){
-    z.innerHTML='<div style="padding:0.6rem;background:#2d8a4e22;border:1px solid #2d8a4e;border-radius:10px;color:#6ee7a3;font-size:0.85rem">🔒 Code PIN activé</div>'+
+    z.innerHTML='<div style="padding:0.6rem;background:#2d8a4e22;border:1px solid #2d8a4e;border-radius:10px;color:#6ee7a3;font-size:0.85rem;margin-bottom:0.5rem">🔒 Code PIN activé</div>'+
       '<button class="primary small" id="btnDesactiverPin" style="background:linear-gradient(135deg,#c0392b,#e07070)">🔓 Désactiver</button>';
     document.getElementById("btnDesactiverPin").addEventListener("click",function(){
       if(!confirm("Désactiver la protection par code PIN ?")) return;
@@ -615,13 +592,11 @@ document.getElementById("btnExportPreuves").addEventListener("click",async funct
   const txt=list.map(function(p,i){return (i+1)+". "+p.date+" "+(p.heure||"")+"\n"+(p.lieu?"Lieu : "+p.lieu+"\n":"")+p.desc+(p.temoins?"\nTémoins : "+p.temoins:"")}).join("\n\n");
   try{
     await navigator.clipboard.writeText(txt);
-    alert("✅ "+list.length+" preuves copiées dans le presse-papiers.\n\nColle-les dans une note sécurisée ou envoie-les à ton avocat.");
-  }catch(e){
-    alert("Voici tes preuves :\n\n"+txt.substring(0,500)+"...");
-  }
+    alert("✅ "+list.length+" preuves copiées dans le presse-papiers.");
+  }catch(e){alert("Voici tes preuves :\n\n"+txt.substring(0,500)+"...");}
 });
 document.getElementById("btnResetPreuves").addEventListener("click",function(){
-  if(!confirm("⚠️ Cela va effacer TOUTES tes preuves.\n\nEs-tu sûre ?")) return;
+  if(!confirm("⚠️ Effacer TOUTES tes preuves ?")) return;
   if(!confirm("Dernière confirmation : effacer définitivement ?")) return;
   save(KEY_PREUVES,[]);
   afficherPreuves();
@@ -676,7 +651,7 @@ document.getElementById("btnCopySOS").addEventListener("click",async function(){
   const msg="🆘 J'ai besoin d'aide. Contacte-moi ou appelle le 117. Merci.";
   try{await navigator.clipboard.writeText(msg);alert("📋 Message copié !");}catch(e){alert(msg)}
 });
-  
+      
 // ============ RESPIRATION 4-7-8 ============
 let breathActive=false;
 function lancerRespiration(){
@@ -783,14 +758,14 @@ document.getElementById("btnAudioPluie").addEventListener("click",function(e){e.
 document.getElementById("btnAudioVagues").addEventListener("click",function(e){e.preventDefault();playBruit("vagues")});
 document.getElementById("btnAudioStop").addEventListener("click",function(e){e.preventDefault();stopSound()});
 
-// ============ INITIALISATION ============
+// ============ INITIALISATION DE BASE ============
 chargerPlan();
 injecterQuestions();
 afficherPreuves();
 afficherContacts();
 majPinStatus();
 
-// ============ PROTECTION PIN AU DÉMARRAGE ============
+// ============ VÉRIFICATION PIN AU DÉMARRAGE ============
 function verifierPinAuDemarrage(){
   if(!load(KEY_PIN_ACTIF,false)) return true;
   const codeAttendu=load(KEY_PIN,"");
@@ -803,12 +778,10 @@ function verifierPinAuDemarrage(){
 }
 setTimeout(function(){
   verifierPinAuDemarrage();
-  console.log("💗 Mon Espace — chargé");
+  console.log("💗 Mon Espace — base chargée");
 },200);
-  
-// ============ AVANCÉES ============
-
-// ============ 1. BOUTON SOS FLOTTANT ============
+      
+// ============ BOUTON SOS FLOTTANT ============
 function ajouterBoutonFlottant(){
   if(document.getElementById("floatSOS")) return;
   const btn=document.createElement("a");
@@ -819,7 +792,7 @@ function ajouterBoutonFlottant(){
   document.body.appendChild(btn);
 }
 
-// ============ 2. MESSAGE D'ESPOIR ALÉATOIRE ============
+// ============ MESSAGES D'ESPOIR ============
 const MESSAGES_ESPOIR=[
   "Tu n'es pas responsable. Tu mérites d'être en sécurité.",
   "Ce que tu vis est grave. Ce n'est pas ta faute.",
@@ -847,24 +820,24 @@ function injecterMessageEspoir(){
   });
 }
 
-// ============ 3. BAGAGE D'URGENCE ============
+// ============ BAGAGE D'URGENCE ============
 const KEY_BAGAGE="sosf_bagage_v1";
 function injecterBagage(){
   const zone=document.getElementById("tab-plan");
   if(!zone||document.getElementById("bagageBox")) return;
   const items=[
     "Papiers d'identité (passeport, carte d'identité)",
-    "Permis de séjour / titre de séjour",
+    "Permis de séjour",
     "Cartes bancaires / argent liquide",
     "Médicaments essentiels",
     "Téléphone + chargeur",
     "Clés de voiture",
     "Vêtements de rechange",
     "Affaires des enfants",
-    "Documents importants (assurance, bail, actes)",
+    "Documents importants (assurance, bail)",
     "Ordonnances médicales",
     "Carnet de vaccination des enfants",
-    "Adresses importantes (avocat, famille)"
+    "Adresses importantes"
   ];
   const saved=load(KEY_BAGAGE,{});
   const box=document.createElement("div");
@@ -892,8 +865,7 @@ function injecterBagage(){
   }
 }
 
-// ============ 4. COMPTEUR "JOURS DE LIBERTÉ" ============
-const KEY_LIBERTE="sosf_liberte_v1";
+// ============ COMPTEUR LIBERTÉ ============
 function injecterLiberte(){
   const zone=document.getElementById("tab-accueil");
   if(!zone||document.getElementById("liberteBox")) return;
@@ -926,7 +898,7 @@ function injecterLiberte(){
   }
 }
 
-// ============ 5. SIGNAL DISCRET SMS ============
+// ============ SIGNAL DISCRET SMS ============
 function injecterSignalDiscret(){
   const zone=document.getElementById("tab-proches");
   if(!zone||document.getElementById("signalBox")) return;
@@ -939,7 +911,7 @@ function injecterSignalDiscret(){
     '<input type="text" id="codeDiscret" placeholder="Code que tu as défini (ex : fleur)">'+
     '<input type="text" id="codeDiscretTel" placeholder="Numéro du proche">'+
     '<button class="primary red small" id="btnSignal">📤 Envoyer le signal discret</button>'+
-    '<p class="text-muted mt-2" style="font-size:0.75rem">Le message envoyé sera : <em>"Est-ce que tu peux me rappeler quand tu peux ? Merci."</em> (anodin pour l\'agresseur, clair pour ton proche).</p>';
+    '<p class="text-muted mt-2" style="font-size:0.75rem">Message envoyé : <em>"Est-ce que tu peux me rappeler quand tu peux ? Merci."</em> (anodin pour l\'agresseur, clair pour ton proche).</p>';
   zone.appendChild(box);
   document.getElementById("btnSignal").addEventListener("click",function(){
     const tel=document.getElementById("codeDiscretTel").value.trim().replace(/\s/g,"");
@@ -949,8 +921,8 @@ function injecterSignalDiscret(){
   });
 }
 
-// ============ 6. AUTO-ÉVALUATION DU JOUR ============
-const KEY_HUMEUR_JOUR="sosf_humeur_v1";
+// ============ HUMEUR DU JOUR ============
+const KEY_HUMEUR="sosf_humeur_v1";
 function injecterHumeurJour(){
   const zone=document.getElementById("tab-accueil");
   if(!zone||document.getElementById("humeurJourBox")) return;
@@ -973,10 +945,10 @@ function injecterHumeurJour(){
   for(let i=0;i<btns.length;i++){
     btns[i].addEventListener("click",function(){
       const v=parseInt(this.dataset.v);
-      const hist=load(KEY_HUMEUR_JOUR,[]);
+      const hist=load(KEY_HUMEUR,[]);
       const filtres=hist.filter(function(h){return new Date(h.date).toDateString()!==today});
       filtres.unshift({valeur:v,date:Date.now()});
-      save(KEY_HUMEUR_JOUR,filtres.slice(0,30));
+      save(KEY_HUMEUR,filtres.slice(0,30));
       alert("✅ Humeur enregistrée !");
       afficherHistHumeur();
     });
@@ -986,7 +958,7 @@ function injecterHumeurJour(){
 function afficherHistHumeur(){
   const z=document.getElementById("humeurHist");
   if(!z) return;
-  const h=load(KEY_HUMEUR_JOUR,[]);
+  const h=load(KEY_HUMEUR,[]);
   if(h.length===0){z.innerHTML='<p class="text-muted" style="font-size:0.75rem">Pas encore d\'humeur enregistrée.</p>';return}
   const emos=["","😢","😕","😐","🙂","😄"];
   z.innerHTML='<div class="lbl">📈 Tes 7 derniers jours</div><div style="display:flex;gap:0.3rem;justify-content:space-between">'+
@@ -996,7 +968,7 @@ function afficherHistHumeur(){
     }).join("")+'</div>';
 }
 
-// ============ 7. DÉTECTION DÉTRESSE DANS LE PLAN ============
+// ============ DÉTECTION DÉTRESSE ============
 const MOTS_DETRESSE=["mourir","suicide","finir","disparaître","plus envie","abandonner","je n'en peux plus","j'en peux plus"];
 function detecterDetresse(texte){
   if(!texte) return false;
@@ -1010,7 +982,7 @@ for(let i=0;i<champsPlan.length;i++){
   if(el){
     el.addEventListener("blur",function(){
       if(detecterDetresse(this.value)){
-        if(confirm("💚 J'ai vu des mots difficiles dans ce que tu as écrit.\n\nVeux-tu voir les ressources pour t'aider maintenant ?")){
+        if(confirm("💚 J'ai vu des mots difficiles.\n\nVoir les ressources ?")){
           switchTab("ressources");
         }
       }
@@ -1018,7 +990,7 @@ for(let i=0;i<champsPlan.length;i++){
   }
 }
 
-// ============ 8. MESSAGE SELON L'HEURE ============
+// ============ MESSAGE SELON L'HEURE ============
 function messageSelonHeure(){
   const h=new Date().getHours();
   let msg="";
@@ -1030,7 +1002,7 @@ function messageSelonHeure(){
   if(sub) sub.textContent=msg;
 }
 
-// ============ 9. BANDEAU CONFIANCE ============
+// ============ BANDEAU CONFIANCE ============
 function injecterBandeauConfiance(){
   const zone=document.getElementById("tab-accueil");
   if(!zone||document.getElementById("confianceBox")) return;
@@ -1047,7 +1019,7 @@ function injecterBandeauConfiance(){
   zone.appendChild(box);
 }
 
-// ============ 10. DIAPORAMA MOTIVATION ============
+// ============ DIAPORAMA MOTIVATION ============
 function injecterDiapo(){
   const sub=document.querySelector(".sub");
   if(!sub||sub.dataset.diapo) return;
@@ -1071,8 +1043,8 @@ setTimeout(function(){
   injecterDiapo();
   console.log("💗 Bloc 5 chargé — fonctionnalités avancées");
 },500);
-  
-// ============ ONGLET DROITS AVANCÉ ============
+      
+// ============ NOTES JURIDIQUES ============
 const KEY_NOTES_DROITS="sosf_notes_droits_v1";
 function injecterNotesDroits(){
   const zone=document.getElementById("tab-droits");
@@ -1132,6 +1104,71 @@ function injecterBilan(){
   zone.appendChild(box);
 }
 
+// ============ 10 ARTICLES ÉDUCATIFS ============
+const ARTICLES=[
+  {
+    titre:"🌀 Le cycle de la violence",
+    contenu:"La violence conjugale suit souvent un cycle en 4 phases : 1) Tension (cris, reproches), 2) Agression (violence verbale ou physique), 3) Justification (l'agresseur minimise ou blâme la victime), 4) Réconciliation (excuses, cadeaux, promesses). Ce cycle se répète et s'aggrave. Comprendre ce schéma aide à sortir de la culpabilité."
+  },
+  {
+    titre:"🧠 Violences psychologiques",
+    contenu:"Les violences psychologiques sont aussi graves que les violences physiques : humiliations, menaces, isolement, contrôle, dévalorisation constante. Elles détruisent l'estime de soi et rendent le départ plus difficile. En Suisse, elles sont punies par la loi."
+  },
+  {
+    titre:"💶 Violences économiques",
+    contenu:"Priver sa conjointe d'argent, contrôler ses dépenses, l'empêcher de travailler : c'est de la violence économique. Elle vise à rendre la victime dépendante. Tu as le droit d'avoir ton propre compte bancaire et tes propres revenus."
+  },
+  {
+    titre:"👶 Impact sur les enfants",
+    contenu:"Les enfants exposés à la violence conjugale souffrent même s'ils ne sont pas directement frappés. Ils peuvent développer anxiété, troubles du sommeil, difficultés scolaires. Les protéger est une raison valable de partir. L'autorité de protection de l'enfant peut t'aider."
+  },
+  {
+    titre:"⚖️ Plainte ou pas plainte ?",
+    contenu:"Tu peux : 1) Porter plainte (poursuites pénales), 2) Déposer une main courante (signalement sans plainte), 3) Demander une ordonnance de protection. Chaque démarche est gratuite. Un avocat peut t'accompagner gratuitement si tes revenus sont faibles."
+  },
+  {
+    titre:"🏠 Quitter le domicile",
+    contenu:"Si tu quittes le domicile familial, tu ne perds PAS tes droits sur le logement ni sur les enfants. La loi suisse te protège. Note l'adresse du domicile, la date de départ, et prends des photos des lieux avant de partir."
+  },
+  {
+    titre:"👮 L'intervention de la police",
+    contenu:"En Suisse, la police peut expulser l'agresseur du domicile pour 10 à 14 jours (selon canton) même sans plainte. C'est une mesure de protection immédiate. Demande-la si tu te sens en danger. Numéro : 117."
+  },
+  {
+    titre:"💚 Tu n'es pas coupable",
+    contenu:"La violence est TOUJOURS la responsabilité de l'agresseur. Tu n'as pas provoqué, tu n'as pas mérité. La honte doit changer de camp. Tu as le droit d'être en colère, d'avoir peur, de demander de l'aide. Tu mérites une vie sans violence."
+  },
+  {
+    titre:"🌱 Après la séparation",
+    contenu:"Le départ est souvent le moment le plus dangereux. Prépare un plan de sécurité, change tes mots de passe, préviens tes proches, garde les preuves. Les associations peuvent t'accompagner gratuitement dans cette étape (0800 90 90 90)."
+  },
+  {
+    titre:"📞 Demander de l'aide",
+    contenu:"Demander de l'aide n'est pas une faiblesse. Le 0800 90 90 90 est gratuit, anonyme, 24h/24. Le site violencequefaire.ch permet de poser des questions anonymes à des spécialistes. Tu peux aussi te rendre dans un centre LAVI (aide aux victimes) près de chez toi."
+  }
+];
+function injecterArticles(){
+  const zone=document.getElementById("tab-ressources");
+  if(!zone||document.getElementById("articlesBox")) return;
+  const box=document.createElement("div");
+  box.id="articlesBox";
+  box.className="card";
+  box.innerHTML='<h3>📚 Articles pour comprendre</h3><p class="text-muted">Clique pour ouvrir.</p>'+
+    ARTICLES.map(function(a,i){
+      return '<div class="article" data-i="'+i+'">'+
+        '<div class="article-title">'+a.titre+'</div>'+
+        '<div class="article-content">'+a.contenu+'</div>'+
+      '</div>';
+    }).join("");
+  zone.appendChild(box);
+  const arts=box.querySelectorAll(".article");
+  for(let i=0;i<arts.length;i++){
+    arts[i].addEventListener("click",function(){
+      this.classList.toggle("open");
+    });
+  }
+}
+
 // ============ MESSAGE DE FIN ============
 function injecterMessageFin(){
   const zone=document.getElementById("tab-accueil");
@@ -1153,9 +1190,15 @@ setTimeout(function(){
   injecterNotesDroits();
   injecterRaccourcis();
   injecterBilan();
+  injecterArticles();
   injecterMessageFin();
   console.log("💗 Mon Espace — TOUTES les fonctionnalités chargées");
 },800);
 </script>
 </body>
 </html>
+      
+      
+      
+      
+    
